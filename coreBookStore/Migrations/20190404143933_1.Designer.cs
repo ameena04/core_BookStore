@@ -10,14 +10,14 @@ using coreBookStore.Models;
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20190404044150_1")]
+    [Migration("20190404143933_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 

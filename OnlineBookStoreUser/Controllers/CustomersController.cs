@@ -62,7 +62,7 @@ namespace OnlineBookStoreUser.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Profile", "Customers");
+                        return RedirectToAction("Profile", "Customers", new { @id = custId });
                     }
 
                    
@@ -91,7 +91,7 @@ namespace OnlineBookStoreUser.Controllers
             HttpContext.Session.Remove("uname");
             return RedirectToAction("Index", "Home");
         }
-        public ActionResult Profile()
+        public ActionResult Profile(int id)
         {
             return View();
         }

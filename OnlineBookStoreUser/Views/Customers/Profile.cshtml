@@ -6,18 +6,13 @@
 
 @using Microsoft.AspNetCore.Http;
 
+@using Microsoft.AspNetCore.Http;
 
 
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE html>
+
 <html>
 <head>
-    <title>Best Store a Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
+    <title>KASH an Online Book Store | Home </title>
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -45,11 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //timer -->
     <!-- animation-effect -->
     <link href="css/animate.min.css" rel="stylesheet">
-    <script src="js/wow.min.js"></script>
-    <script>
-        new WOW().init();
-    </script>
-    <!-- //animation-effect -->
+
 </head>
 
 <body>
@@ -59,10 +50,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="header-grid">
                 <div class="header-grid-left animated wow slideInLeft" data-wow-delay=".5s">
                     <ul>
-                        
-                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 892</li>
-                        <li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a href="login.html">Login</a></li>
-                        <li><i class="glyphicon glyphicon-book" aria-hidden="true"></i><a href="register.html">Register</a></li>
+                        @*<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">kask@gmil.com</a></li>*@
+                        <li>Welcome @Context.Session.GetString("uname") !!</li>
+
+                        @*<li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a asp-controller="Customers" asp-action="Login">Login</a></li>*@
+                        @*<li><i class="glyphicon glyphicon-book" aria-hidden="true"></i><a href="register.html">Register</a></li>*@
+
+                        @if (Context.Session.GetString("uname") == null)
+                        {
+                            <li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a asp-controller="Customers" asp-action="Login">Login</a></li>
+                        }
+                        else
+                        {
+                            <li><i class="glyphicon glyphicon-log-in" aria-hidden="true"></i><a asp-action="Logout" asp-controller="Customers">Logout</a></li>
+                        }
+
                     </ul>
                 </div>
                 <div class="header-grid-right animated wow slideInRight" data-wow-delay=".5s">
@@ -77,7 +79,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="logo-nav">
                 <div class="logo-nav-left animated wow zoomIn" data-wow-delay=".5s">
-                    <h1><a href="index.html">Best Store <span>Shop anywhere</span></a></h1>
+                    <a asp-controller="Home" asp-action="Index"><img src="~/images/logo.png"></a>
                 </div>
                 <div class="logo-nav-left1">
                     <nav class="navbar navbar-default">
@@ -92,87 +94,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                         <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="index.html" class="act">Home</a></li>
+                                <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
                                 <!-- Mega Menu -->
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
-                                    <ul class="dropdown-menu multi-column columns-3">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Men's Wear</h6>
-                                                    <li><a href="products.html">Clothing</a></li>
-                                                    <li><a href="products.html">Wallets</a></li>
-                                                    <li><a href="products.html">Shoes</a></li>
-                                                    <li><a href="products.html">Watches</a></li>
-                                                    <li><a href="products.html">Accessories</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Women's Wear</h6>
-                                                    <li><a href="products.html">Clothing</a></li>
-                                                    <li><a href="products.html">Wallets,Bags</a></li>
-                                                    <li><a href="products.html">Footwear</a></li>
-                                                    <li><a href="products.html">Watches</a></li>
-                                                    <li><a href="products.html">Accessories</a></li>
-                                                    <li><a href="products.html">Jewellery</a></li>
-                                                    <li><a href="products.html">Beauty & Grooming</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Kid's Wear</h6>
-                                                    <li><a href="products.html">Kids Home Fashion</a></li>
-                                                    <li><a href="products.html">Boy's Clothing</a></li>
-                                                    <li><a href="products.html">Girl's Clothing</a></li>
-                                                    <li><a href="products.html">Shoes</a></li>
-                                                    <li><a href="products.html">Brand Stores</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="clearfix"></div>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+                                    <ul class="dropdown-menu columns-1">
+
+                                        <div class="col-sm-2">
+                                            <ul class="multi-column-dropdown">
+                                                <li>
+                                                    @*@foreach (var item in Model)
+                                                        {
+
+                                                            <a asp-controller="Book" asp-action="BookCategoryIndex">
+
+                                                                <p>@item.BookCategoryName</p>
+
+                                                            </a>
+
+                                                        }*@
+                                                </li>
+                                            </ul>
                                         </div>
+
+                                        <div class="clearfix"></div>
+
                                     </ul>
                                 </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Furniture <b class="caret"></b></a>
-                                    <ul class="dropdown-menu multi-column columns-3">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Home Collection</h6>
-                                                    <li><a href="furniture.html">Cookware</a></li>
-                                                    <li><a href="furniture.html">Sofas</a></li>
-                                                    <li><a href="furniture.html">Dining Tables</a></li>
-                                                    <li><a href="furniture.html">Shoe Racks</a></li>
-                                                    <li><a href="furniture.html">Home Decor</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Office Collection</h6>
-                                                    <li><a href="furniture.html">Carpets</a></li>
-                                                    <li><a href="furniture.html">Tables</a></li>
-                                                    <li><a href="furniture.html">Sofas</a></li>
-                                                    <li><a href="furniture.html">Shoe Racks</a></li>
-                                                    <li><a href="furniture.html">Sockets</a></li>
-                                                    <li><a href="furniture.html">Electrical Machines</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Decorations</h6>
-                                                    <li><a href="furniture.html">Toys</a></li>
-                                                    <li><a href="furniture.html">Wall Clock</a></li>
-                                                    <li><a href="furniture.html">Lighting</a></li>
-                                                    <li><a href="furniture.html">Top Brands</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </ul>
-                                </li>
-                                <li><a href="short-codes.html">Short Codes</a></li>
+
+                                <li><a href="short-codes.html">Authors</a></li>
+                                <li><a href="short-codes.html">Publications</a></li>
                                 <li><a href="mail.html">Mail Us</a></li>
                             </ul>
                         </div>
@@ -215,100 +166,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
     <!-- //header -->
-   
+
+    <div class="content">
+        <main role="main" class="container">
+
+            @RenderBody()
+            <hr>
+        </main><!-- /.container -->
+    </div>
+    <!-- //collections -->
+
+    <div class="newsletter animated wow slideInUp" data-wow-delay=".5s">
+        <h3>Newsletter</h3>
+        <p>Join us now to get all news and special offers.</p>
+        <form>
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+            <input type="email" value="Enter your email address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email address';}" required="">
+            <input type="submit" value="Join Us">
+        </form>
+    </div>
+
+    <!-- //collections-bottom -->
+    <!-- footer -->
     <div class="footer">
         <div class="container">
             <div class="footer-grids">
-                <div class="col-md-3 footer-grid animated wow slideInLeft" data-wow-delay=".5s">
-                    <h3>About Us</h3>
-                    <p>
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse.<span>
-                            Excepteur sint occaecat cupidatat
-                            non proident, sunt in culpa qui officia deserunt mollit.
-                        </span>
-                    </p>
+
+                <div class="footer-logo animated wow slideInUp" data-wow-delay=".5s">
+                    <h2><a href="index.html">KASH Book Store <span>shop anywhere</span></a></h2>
                 </div>
-                <div class="col-md-3 footer-grid animated wow slideInLeft" data-wow-delay=".6s">
-                    <h3>Contact Info</h3>
-                    <ul>
-                        <li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>1234k Avenue, 4th block, <span>New York City.</span></li>
-                        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">info@example.com</a></li>
-                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+1234 567 567</li>
-                    </ul>
+                <div class="copy-right animated wow slideInUp" data-wow-delay=".5s">
+                    <p>Copyright &copy; 2019 KASH Book Store. All Rights Reserved.</p>
                 </div>
-                <div class="col-md-3 footer-grid animated wow slideInLeft" data-wow-delay=".7s">
-                    <h3>Flickr Posts</h3>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/13.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/14.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/15.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/16.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/13.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/14.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/15.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/16.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/13.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/14.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/15.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="footer-grid-left">
-                        <a href="single.html"><img src="images/16.jpg" alt=" " class="img-responsive" /></a>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="col-md-3 footer-grid animated wow slideInLeft" data-wow-delay=".8s">
-                    <h3>Blog Posts</h3>
-                    <div class="footer-grid-sub-grids">
-                        <div class="footer-grid-sub-grid-left">
-                            <a href="single.html"><img src="images/9.jpg" alt=" " class="img-responsive" /></a>
-                        </div>
-                        <div class="footer-grid-sub-grid-right">
-                            <h4><a href="single.html">culpa qui officia deserunt</a></h4>
-                            <p>Posted On 25/3/2016</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="footer-grid-sub-grids">
-                        <div class="footer-grid-sub-grid-left">
-                            <a href="single.html"><img src="images/10.jpg" alt=" " class="img-responsive" /></a>
-                        </div>
-                        <div class="footer-grid-sub-grid-right">
-                            <h4><a href="single.html">Quis autem vel eum iure</a></h4>
-                            <p>Posted On 25/3/2016</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-            <div class="footer-logo animated wow slideInUp" data-wow-delay=".5s">
-                <h2><a href="index.html">Best Store <span>shop anywhere</span></a></h2>
-            </div>
-            <div class="copy-right animated wow slideInUp" data-wow-delay=".5s">
-                <p>Copyright &copy; 2016 Best Store. All Rights Reserved.</p>
             </div>
         </div>
     </div>
     <!-- //footer -->
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!-- //animation-effect -->
 </body>
 </html>
+

@@ -17,14 +17,17 @@
 <br />
 <br />
 <div class="card" align="justify" style="width: 300px;float:left"><br /><br />
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a>Purchased E-Book Repository</a></li>
-        <li class="list-group-item"><a href="#news">Order</a></li>
-        <li class="list-group-item"><a href="#contact">Shipping Address</a></li>
-        <li class="list-group-item"><a href="#about">Cart</a></li>
-        <li class="list-group-item"><a href="#about">Change Password</a></li>
+   
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a asp-controller="Customers" asp-action="UpdateProfile">Profile</a></li>
+             <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetAddress">Reset Address</a></li>
+            <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Order</a></li>
+            <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Purchased E-Book Repository</a></li>
+            <li class="list-group-item"><a href="#about">Cart</a></li>
+            <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetPassword">Reset Password</a></li>
+        </ul>
 
-    </ul>
+    
 </div>
 
 <div class="card" align="justify" style="width: 800px;float:right">
@@ -36,14 +39,14 @@
     </div><form asp-controller="Customers" asp-action="Edit">
               <ul class="list-group list-group-flush">
                   @Html.HiddenFor(model => model.CustomerId)
+                  @Html.HiddenFor(model => model.UserName)
+                  @Html.HiddenFor(model => model.OldPassword)
+                  @Html.HiddenFor(model => model.NewPassword)
+                  @Html.HiddenFor(model => model.Address)
+                  @Html.HiddenFor(model => model.ZipCode)
+                  @Html.HiddenFor(model => model.ShippingAddress)
                   <li class="list-group-item">First Name :  <input type="text" asp-for="FirstName" class="form-control" /></li>
                   <li class="list-group-item">Last Name : <input type="text" asp-for="LastName" class="form-control" /></li>
-                  @*<li class="list-group-item">UserName : <input type="text" asp-for="UserName" class="form-control" /></li>
-        <li class="list-group-item">Password : <input type="password" asp-for="Password" class="form-control" /></li>
-        <li class="list-group-item">Email : <input type="text" asp-for="Email" class="form-control" /></li>
-        <li class="list-group-item">Address : <input type="text" asp-for="Address" class="form-control" /></li>
-        <li class="list-group-item">Zipcode : <input type="text" asp-for="ZipCode" class="form-control" /></li>
-        <li class="list-group-item">Contact : <input type="text" asp-for="Contact" class="form-control" /></li>*@
                   <li class="list-group-item">Email : <input type="text" asp-for="Email" class="form-control" /></li>
                   <li class="list-group-item">Contact : <input type="text" asp-for="Contact" class="form-control" /></li>
               </ul>

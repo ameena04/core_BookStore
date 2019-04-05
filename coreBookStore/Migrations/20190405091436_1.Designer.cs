@@ -10,7 +10,7 @@ using coreBookStore.Models;
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20190405035034_1")]
+    [Migration("20190405091436_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,8 @@ namespace coreBookStore.Migrations
                     b.Property<string>("BookImage");
 
                     b.Property<string>("BookName");
+
+                    b.Property<string>("BookPdf");
 
                     b.Property<float>("BookPrice");
 
@@ -106,7 +108,9 @@ namespace coreBookStore.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("Password");
+                    b.Property<string>("NewPassword");
+
+                    b.Property<string>("OldPassword");
 
                     b.Property<bool>("ShippingAddress");
 

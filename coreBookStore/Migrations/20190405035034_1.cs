@@ -49,15 +49,11 @@ namespace coreBookStore.Migrations
                     UserName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
                     ZipCode = table.Column<long>(nullable: false),
                     Contact = table.Column<long>(nullable: false),
                     BillingAddress = table.Column<bool>(nullable: false),
-                    ShippingAddress = table.Column<bool>(nullable: false),
-                    SaveInformation = table.Column<bool>(nullable: false),
-                    PaymentType = table.Column<bool>(nullable: false)
+                    ShippingAddress = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

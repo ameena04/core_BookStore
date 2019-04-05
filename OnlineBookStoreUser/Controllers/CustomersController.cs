@@ -14,7 +14,7 @@ namespace OnlineBookStoreUser.Controllers
         Book_Store_DbContext context = new Book_Store_DbContext();
 
 
-
+        [Route("register")]
         [HttpGet]
         public ViewResult Register()
         {
@@ -54,6 +54,7 @@ namespace OnlineBookStoreUser.Controllers
                 {
 
                     HttpContext.Session.SetString("uname", cust.UserName);
+                    HttpContext.Session.SetString("cid", custId.ToString());
                     if (ViewBag.cart != null)
                     {
                        
@@ -91,11 +92,42 @@ namespace OnlineBookStoreUser.Controllers
             HttpContext.Session.Remove("uname");
             return RedirectToAction("Index", "Home");
         }
-       
 
-        public ActionResult UpdateProfile()
+        [Route("updateprofile")]
+        public ActionResult UpdateProfile(int id)
         {
-            return View();
+
+            Customers cust = context.Customers.Where(x => x.CustomerId == id).SingleOrDefault();
+            return View(cust);
+
         }
+       
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            int custId = int.Parse(HttpContext.Session.GetString("cid"));
+            Customers cust = context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
+            return View(cust);
+        }
+     
+        [HttpPost]
+        public ActionResult Edit(int id,Customers a1)
+        {
+            int custId = int.Parse(HttpContext.Session.GetString("cid"));
+            Customers cust = context.Customers.Where
+                (x => x.CustomerId == custId).SingleOrDefault();
+            context.Entry(cust).CurrentValues.SetValues(a1);
+            context.SaveChanges();
+            return RedirectToAction("UpdateProfile",new { @id = custId } );
+        }
+        public ActionResult Repository(int id)
+        {
+
+            ViewBag.ob = context.OrderBooks.Where(x => x.OrderId == id).ToList();
+            return View();
+            
+        }
+
     }
+
 }

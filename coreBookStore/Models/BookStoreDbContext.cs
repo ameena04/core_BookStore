@@ -20,7 +20,7 @@ namespace coreBookStore.Models
         public DbSet<OrderBook> OrderBooks { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-6DS8N5E0;Initial Catalog=Book_Store_Db;Integrated Security=true;");
+            optionsBuilder.UseSqlServer("Data Source=TRD-511;Initial Catalog=Book_Store_Db;Integrated Security=true;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -10,14 +10,14 @@ using coreBookStore.Models;
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20190404143933_1")]
+    [Migration("20190405035034_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -98,11 +98,7 @@ namespace coreBookStore.Migrations
 
                     b.Property<bool>("BillingAddress");
 
-                    b.Property<string>("City");
-
                     b.Property<long>("Contact");
-
-                    b.Property<string>("Country");
 
                     b.Property<string>("Email");
 
@@ -111,10 +107,6 @@ namespace coreBookStore.Migrations
                     b.Property<string>("LastName");
 
                     b.Property<string>("Password");
-
-                    b.Property<bool>("PaymentType");
-
-                    b.Property<bool>("SaveInformation");
 
                     b.Property<bool>("ShippingAddress");
 

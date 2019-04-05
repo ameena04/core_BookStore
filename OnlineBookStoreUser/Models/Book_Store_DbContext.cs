@@ -27,8 +27,8 @@ namespace OnlineBookStoreUser.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=LAPTOP-6DS8N5E0;Database=Book_Store_Db;Integrated Security=true");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=TRD-511;Database=Book_Store_Db;Integrated Security=true");
             }
         }
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model OnlineBookStoreUser.Models.Customers
 @{
     ViewData["Title"] = "UpdateProfile";
     Layout = "~/Views/Shared/_PartialLayout.cshtml";
@@ -25,18 +25,59 @@
     </div>*@
 
 
-<div class="row">
-    <div class="card-group">
-        <div class="card" style="width: 18rem;">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" img src="~/images/profile.png"><a href="#home">Profile</a></li>
-                <li class="list-group-item"><a href="#news">Order</a></li>
-                <li class="list-group-item"><a href="#contact">Saved Address</a></li>
-                <li class="list-group-item"><a href="#about">Cart</a></li>
-                <li class="list-group-item"><a href="#about">Change Password</a></li>
-            </ul>
+@*<div class="row">
+        <div class="card-group">
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" img src="~/images/profile.png"><a href="#home">Profile</a></li>
+                    <li class="list-group-item"><a href="#news">Order</a></li>
+                    <li class="list-group-item"><a href="#contact">Saved Address</a></li>
+                    <li class="list-group-item"><a href="#about">Cart</a></li>
+                    <li class="list-group-item"><a href="#about">Change Password</a></li>
+                </ul>
+            </div>
+
         </div>
-        
+    </div>*@
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository" >Purchased E-Book Repository</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Order</a></li>
+                    <li class="list-group-item"><a href="#contact">Shipping Address</a></li>
+                    <li class="list-group-item"><a href="#about">Cart</a></li>
+                    <li class="list-group-item"><a href="#about">Change Password</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8"> 
+        <div class="card mb-4 shadow-sm">
+            
+            <li class="list-group-item">
+                <p> <center ><h3><b>Basic Information</b></h3></center></p>
+            </li>
+            <div class="card-body">
+                <li class="list-group-item">
+                    
+                        <h4 class="card-title">First Name :  @Html.DisplayFor(model => model.FirstName)</h4>
+                        <h4 class="card-title">Last Name :  @Html.DisplayFor(model => model.LastName)</h4>
+                        <h4 class="card-title">Email Id :  @Html.DisplayFor(model => model.Email)</h4>
+                        <h4 class="card-title">Contact :  @Html.DisplayFor(model => model.Contact)</h4>
+                        
+                    
+                </li>
+                <li class="list-group-item">
+                    <p> <center><a asp-controller="Customers" asp-action="Edit"  class="btn btn-sm btn-outline-secondary">Edit </a></center></p>
+                </li>
+                        
+                
+                
+            </div>
+        </div>
     </div>
 </div>
-

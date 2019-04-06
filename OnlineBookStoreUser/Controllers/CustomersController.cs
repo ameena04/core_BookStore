@@ -49,7 +49,7 @@ namespace OnlineBookStoreUser.Controllers
             {
                 int custId = user.CustomerId;
                 ViewBag.custName = cust.UserName;
-                //var obj = context.Customers.Where(a => a.UserName.Equals(cust.UserName) && a.Password.Equals(cust.Password)).FirstOrDefault();
+              
                 if (user != null)
                 {
 
@@ -90,6 +90,7 @@ namespace OnlineBookStoreUser.Controllers
         public ActionResult Logout()
         {
             HttpContext.Session.Remove("uname");
+            HttpContext.Session.Remove("id");
             return RedirectToAction("Index", "Home");
         }
 

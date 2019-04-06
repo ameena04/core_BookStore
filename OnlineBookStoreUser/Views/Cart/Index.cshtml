@@ -152,8 +152,11 @@
                     <li>Total <i>-</i> <span>@ViewBag.total</span></li>
 
                 </ul>
-                <a asp-controller="Cart" asp-action="CheckOut" asp-route-id="@Context.Session.GetString("id")" class="btn btn-sm btn-outline-secondary">Checkout</a>
-
+               @if(@Context.Session.GetString("id")!=null){
+                   <a asp-controller="Cart" asp-action="CheckOut" asp-route-id="@Context.Session.GetString("id")" class="btn btn-sm btn-outline-secondary">Checkout</a>
+                }
+                else{<a asp-controller="Customers" asp-action="Login"  class="btn btn-sm btn-outline-secondary">Checkout</a>
+                }
             </div>
             <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
                 <a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>

@@ -5,16 +5,18 @@
 }
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-md-3">
         <div class="card mb-4 shadow-sm">
 
             <div class="card-body">
+                
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a asp-controller="Customers" asp-action="UpdateProfile">Profile</a></li>
-                    <li class="list-group-item"><a href="#news">Order</a></li>
-                    <li class="list-group-item"><a href="#contact">Shipping Address</a></li>
-                    <li class="list-group-item"><a href="#about">Cart</a></li>
-                    <li class="list-group-item"><a href="#about">Change Password</a></li>
+
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetAddress">Reset Address</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Order</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Purchased E-Book Repository</a></li>
+                    <li class="list-group-item"><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetPassword">Reset Password</a></li>
                 </ul>
             </div>
         </div>

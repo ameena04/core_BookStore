@@ -20,7 +20,7 @@ namespace OnlineBookStoreUser.Controllers
             return View();
         }
 
-        [Route("details")]
+
         public ActionResult Details(int id)
         {
             Books bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();

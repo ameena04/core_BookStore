@@ -4,60 +4,57 @@
     Layout = "~/Views/Shared/_PartialLayout.cshtml";
 }
 
-<div class="breadcrumbs">
-    <div class="container">
-        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-            <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-            <li class="active">Edit Page</li>
-        </ol>
-    </div>
-</div>
-<!-- //breadcrumbs -->
+
 <!-- register -->
-<br />
-<br />
-<div class="card" align="justify" style="width: 300px;float:left"><br /><br />
-   
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item"><a asp-controller="Customers" asp-action="UpdateProfile">Profile</a></li>
-             <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetAddress">Reset Address</a></li>
-            <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Order</a></li>
-            <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Purchased E-Book Repository</a></li>
-            <li class="list-group-item"><a href="#about">Cart</a></li>
-            <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetPassword">Reset Password</a></li>
-        </ul>
 
-    
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Profile" asp-route-id="@Model.CustomerId">Profile</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetAddress">Reset Address</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Order</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="Repository">Purchased E-Book Repository</a></li>
+                    <li class="list-group-item"><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+                    <li class="list-group-item"><a asp-controller="Customers" asp-action="ResetPassword">Reset Password</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-md-3">
+        <div class="card mb-4 shadow-sm">
+
+
+            <div class="card" align="justify" style="width: 800px;float:right">
+
+                <div class="card-body">
+
+                    <li class="list-group-item"><h3>Edit Basic Information</h3></li>
+
+                </div>
+                <form asp-controller="Customers" asp-action="Edit">
+                    <ul class="list-group list-group-flush">
+                        @Html.HiddenFor(model => model.CustomerId)
+                        @Html.HiddenFor(model => model.UserName)
+                        @Html.HiddenFor(model => model.OldPassword)
+                        @Html.HiddenFor(model => model.NewPassword)
+                        @Html.HiddenFor(model => model.Address)
+                        @Html.HiddenFor(model => model.ZipCode)
+                        @Html.HiddenFor(model => model.ShippingAddress)
+                        <li class="list-group-item">First Name :  <input type="text" asp-for="FirstName" class="form-control" /></li>
+                        <li class="list-group-item">Last Name : <input type="text" asp-for="LastName" class="form-control" /></li>
+                        <li class="list-group-item">Email : <input type="text" asp-for="Email" class="form-control" /></li>
+                        <li class="list-group-item">Contact : <input type="text" asp-for="Contact" class="form-control" /></li>
+                        <li class="list-group-item">   <center> <input type="submit" value="Edit" class="btn btn-primary" /></li> </center>
+                    </ul>
+
+            </form>
+
+            </div>
+        </div>
+
+    </div>
+
 </div>
-
-<div class="card" align="justify" style="width: 800px;float:right">
-  
-    <div class="card-body">
-       
-
-
-    </div><form asp-controller="Customers" asp-action="Edit">
-              <ul class="list-group list-group-flush">
-                  @Html.HiddenFor(model => model.CustomerId)
-                  @Html.HiddenFor(model => model.UserName)
-                  @Html.HiddenFor(model => model.OldPassword)
-                  @Html.HiddenFor(model => model.NewPassword)
-                  @Html.HiddenFor(model => model.Address)
-                  @Html.HiddenFor(model => model.ZipCode)
-                  @Html.HiddenFor(model => model.ShippingAddress)
-                  <li class="list-group-item">First Name :  <input type="text" asp-for="FirstName" class="form-control" /></li>
-                  <li class="list-group-item">Last Name : <input type="text" asp-for="LastName" class="form-control" /></li>
-                  <li class="list-group-item">Email : <input type="text" asp-for="Email" class="form-control" /></li>
-                  <li class="list-group-item">Contact : <input type="text" asp-for="Contact" class="form-control" /></li>
-              </ul>
-    
-
-    <input type="submit" value="Edit" class="btn btn-primary" />
-</form>
-    
-</div>
-
-
-
-
-

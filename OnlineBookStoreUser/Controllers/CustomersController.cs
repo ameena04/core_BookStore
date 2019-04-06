@@ -63,7 +63,7 @@ namespace OnlineBookStoreUser.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("UpdateProfile", "Customers", new { @id = custId });
+                        return RedirectToAction("Profile", "Customers", new { @id = custId });
                     }
 
                    
@@ -93,8 +93,8 @@ namespace OnlineBookStoreUser.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Route("updateprofile")]
-        public ActionResult UpdateProfile(int id)
+        [Route("profile")]
+        public ActionResult Profile(int id)
         {
 
             Customers cust = context.Customers.Where(x => x.CustomerId == id).SingleOrDefault();
@@ -118,7 +118,7 @@ namespace OnlineBookStoreUser.Controllers
                 (x => x.CustomerId == custId).SingleOrDefault();
             context.Entry(cust).CurrentValues.SetValues(a1);
             context.SaveChanges();
-            return RedirectToAction("UpdateProfile",new { @id = custId } );
+            return RedirectToAction("Profile",new { @id = custId } );
         }
 
         [Route("resetpassword")]
@@ -138,7 +138,7 @@ namespace OnlineBookStoreUser.Controllers
                 (x => x.CustomerId == custId).SingleOrDefault();
             cust.NewPassword = a1.NewPassword;
             context.SaveChanges();
-            return RedirectToAction("UpdateProfile", new { @id = custId });
+            return RedirectToAction("Profile", new { @id = custId });
         }
 
         [Route("resetaddress")]
@@ -158,7 +158,7 @@ namespace OnlineBookStoreUser.Controllers
                 (x => x.CustomerId == custId).SingleOrDefault();
             cust.Address = a1.Address;
             context.SaveChanges();
-            return RedirectToAction("UpdateProfile", new { @id = custId });
+            return RedirectToAction("Profile", new { @id = custId });
         }
 
 

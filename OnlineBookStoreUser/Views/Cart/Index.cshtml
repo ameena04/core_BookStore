@@ -1,4 +1,6 @@
-﻿@*@{
+﻿@using Microsoft.AspNetCore.Http;
+@*
+    @{
         ViewData["Title"] = "Index";
         Layout = "~/Views/Shared/_UserLayout.cshtml";
     }
@@ -150,7 +152,7 @@
                     <li>Total <i>-</i> <span>@ViewBag.total</span></li>
 
                 </ul>
-                <a asp-controller="Cart" asp-action="CheckOut" asp-route-id="@ViewBag.Books.BookId" class="btn btn-sm btn-outline-secondary">Checkout</a>
+                <a asp-controller="Cart" asp-action="CheckOut" asp-route-id="@Context.Session.GetString("id")" class="btn btn-sm btn-outline-secondary">Checkout</a>
 
             </div>
             <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">

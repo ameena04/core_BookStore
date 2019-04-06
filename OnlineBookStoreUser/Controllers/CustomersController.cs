@@ -54,12 +54,12 @@ namespace OnlineBookStoreUser.Controllers
                 {
 
                     HttpContext.Session.SetString("uname", cust.UserName);
+                    HttpContext.Session.SetString("id", user.CustomerId.ToString());
+
                     HttpContext.Session.SetString("cid", custId.ToString());
                     if (ViewBag.cart != null)
                     {
-                       
-
-                        return RedirectToAction("CheckOut", "Cart", new { @id = custId });
+                          return RedirectToAction("CheckOut", "Cart", new { @id = custId });
                     }
                     else
                     {
@@ -94,10 +94,10 @@ namespace OnlineBookStoreUser.Controllers
         }
 
         [Route("profile")]
-        public ActionResult Profile(int id)
+        public ActionResult Profile()
         {
-
-            Customers cust = context.Customers.Where(x => x.CustomerId == id).SingleOrDefault();
+            int custId = int.Parse(HttpContext.Session.GetString("cid"));
+            Customers cust = context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
             return View(cust);
 
         }

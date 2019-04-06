@@ -10,7 +10,7 @@ using coreBookStore.Models;
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20190405091436_1")]
+    [Migration("20190406114141_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

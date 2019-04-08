@@ -3,142 +3,222 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
-
+<!doctype html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Order1</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <meta charset="utf-8">
+    <title>A simple, clean, and responsive HTML invoice template</title>
+
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+            .invoice-box table {
+                width: 100%;
+                line-height: inherit;
+                text-align: left;
+            }
+
+                .invoice-box table td {
+                    padding: 5px;
+                    vertical-align: top;
+                }
+
+                .invoice-box table tr td:nth-child(2) {
+                    text-align: right;
+                }
+
+                .invoice-box table tr.top table td {
+                    padding-bottom: 20px;
+                }
+
+                    .invoice-box table tr.top table td.title {
+                        font-size: 45px;
+                        line-height: 45px;
+                        color: #333;
+                    }
+
+                .invoice-box table tr.information table td {
+                    padding-bottom: 40px;
+                }
+
+                .invoice-box table tr.heading td {
+                    background: #eee;
+                    border-bottom: 1px solid #ddd;
+                    font-weight: bold;
+                }
+
+                .invoice-box table tr.details td {
+                    padding-bottom: 20px;
+                }
+
+                .invoice-box table tr.item td {
+                    border-bottom: 1px solid #eee;
+                }
+
+                .invoice-box table tr.item.last td {
+                    border-bottom: none;
+                }
+
+                .invoice-box table tr.total td:nth-child(2) {
+                    border-top: 2px solid #eee;
+                    font-weight: bold;
+                }
+
+        media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td
+
+        {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        }
+
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+            .rtl table {
+                text-align: right;
+            }
+
+                .rtl table tr td:nth-child(2) {
+                    text-align: left;
+                }
+    </style>
 </head>
+
 <body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="~/images/logo.png" style="width:100%; max-width:300px;">
+                            </td>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="invoice-title">
-                    
+                            <td>
 
-                            <p align="right"> <img src="~/images/logo.png" height="10%" width="20%" /></p>
-                                                             
-                    <p align="center"><h1>Invoice</h1></p>
-                </div>
-                <hr>
-                <div class="row">
-
-                    <div class="col-xs-6">
-                        <address>
-                            <strong>@ViewBag.Customers.FirstName</strong><br>
-                            <strong>@ViewBag.Customers.Email</strong><br>
-                            <strong>@ViewBag.Customers.Address</strong><br>
-                            <strong>@ViewBag.Customers.Contact</strong><br>
-
-                        </address>
-
-
-                        @*<div class="col-xs-6 text-right">
-                                <address>
-                                    <strong>Shipped To:</strong><br>
-                                    Jane Smith<br>
-                                    1234 Main<br>
-                                    Apt. 4B<br>
-                                    Springfield, ST 54321
-                                </address>
-                            </div>*@
-
-                    </div>
-                    <div class="row">
-                        @*<div class="col-xs-6">
-                            <address>
-                                <strong>Payment Method:</strong><br>
-                                Visa ending **** 4242<br>
-                                jsmith@email.com
-                            </address>
-                        </div>*@
-                        <div class="col-xs-6 text-right">
-                            <address>
-                                <strong>Order Date:</strong><br>
-                                <p id="demo"></p>
+                                Dated:  <p id="demo"></p>
                                 <script>
                                     var d = new Date();
                                     document.getElementById("demo").innerHTML = d;
-                                </script>
-                            </address>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                </script><br>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><strong>Order summary</strong></h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <td><strong>Book Name</strong></td>
-                                            <td class="text-center"><strong>Book Quantity</strong></td>
-                                            <td class="text-center"><strong>Unit Price</strong></td>
-                                            <td class="text-center"><strong>Amount</strong></td>
-                                            @*<td class="text-right"><strong>Totals</strong></td>*@
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in ViewBag.cart)
-                                        {
-                                        <tr>
-                                            <td>@item.Books.BookName</td>
-                                            <td class="text-center">@item.Quantity</td>
-                                            <td class="text-center">@item.Books.BookPrice</td>
-                                            <td class="text-center">@(item.Books.BookPrice * item.Quantity)</td>
-                                            @*<td class="text-right">@ViewBag.total</td>*@
-                                        </tr>
-                                        }
-                                        @*<tr>
-                                                <td>BS-400</td>
-                                                <td class="text-center">$20.00</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-right">$60.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>BS-1000</td>
-                                                <td class="text-center">$600.00</td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-right">$600.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="thick-line"></td>
-                                                <td class="thick-line"></td>
-                                                <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                                                <td class="thick-line text-right">$670.99</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="no-line"></td>
-                                                <td class="no-line"></td>
-                                                <td class="no-line text-center"><strong>Shipping</strong></td>
-                                                <td class="no-line text-right">$15</td>
-                                            </tr>*@
-                                        <tr>
-                                            <td class="no-line"></td>
-                                            <td class="no-line"></td>
-                                            <td class="no-line text-center"><strong>Total</strong></td>
-                                            <td class="no-line text-center">@ViewBag.total</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-outline-success">Back To Home</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+
+                        <tr>
+                            <td>
+                                KASH BOOK STORE<br>
+
+                            </td>
+
+                            <td>
+                                @ViewBag.Customers.FirstName<br>
+                                @ViewBag.Customers.Address<br>
+                                @ViewBag.Customers.Email<br>
+                                @ViewBag.Customers.Contact
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            @*<tr class="heading">
+                    <td>
+                        Payment Method
+                    </td>
+
+                    <td>
+                        Check #
+                    </td>
+                </tr>*@
+
+            @*<tr class="details">
+                    <td>
+                        Check
+                    </td>
+
+                    <td>
+                        1000
+                    </td>
+                </tr>*@
+            @foreach (var item in ViewBag.cart)
+            {
+                <tr>
+                    <td>
+                        Item
+                    </td>
+                    <td>
+                        Quantity
+                    </td>
+
+                    <td>
+                        Price
+                    </td>
+                </tr>
+
+                <tr class="item">
+                    <td>
+                        @item.Books.BookName
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+
+                    <td>
+                        @item.Books.BookPrice
+                    </td>
+                </tr>
+            }
+
+
+            <tr class="total">
+                <td></td>
+
+                <td>
+                    Total: @ViewBag.total
+                </td>
+            </tr>
+        </table>
+        <br />
+        <br />
+        <br />
+        <center>
+            <p>THANKS FOR YOUR SUPPORT</p><br />
+            <p> Keep Reading more Books</p>
+        </center>
     </div>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
 </body>
 </html>

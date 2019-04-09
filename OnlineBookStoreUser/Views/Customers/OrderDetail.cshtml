@@ -1,9 +1,11 @@
 ﻿@model OnlineBookStoreUser.Models.Orders
 
 @{
-    ViewData["Title"] = "Repository";
+    ViewData["Title"] = "OrderDetail";
     Layout = "~/Views/Shared/_PartialLayout.cshtml";
 }
+
+<h2>OrderDetail</h2>
 
 <div class="col-md-3 col-md-3" style="float:left">
     <div class="list-group">
@@ -16,41 +18,29 @@
     </div>
 </div>
 
+<table class="table table-hover">
+    <tr>
 
-<div class="col-md-9 col-md-11">
-    <div class="card" align="justify" style="width: 800px;float:right">
+        <th>BookId</th>
+        <th>BookName</th>
 
-        <div class="card-body">
+        <th>Action</th>
+    </tr>
+    @foreach (var Item in ViewBag.bookDetail)
+    {
+        <tr>
 
-            <li class="list-group-item"><p><h3><i class="glyphicon glyphicon-cloud" aria-hidden="true"></i>&nbsp;&nbsp;Repository</h3></p></li>
-            <table class="table table-hover">
-                <tr>
+            <td>@Item.BookId</td>
+            <td>@Item.BookName</td>
+            <td>
+                <a asp-controller="Book" asp-action="Details" class="btn btn-info"
+                   asp-route-id="@Item.BookId">Book Details</a>
+            </td>
+        </tr>
+    }
 
-                    <th>BookId</th>
-                    <th>BookName</th>
-
-                    <th>Action</th>
-                </tr>
-                @foreach (var Item in ViewBag.bookDetail)
-                {
-                    <tr>
-
-                        <td>@Item.BookImage</td>
-                        <td>@Item.BookName</td>
-                        <td>
-                            
-                            <a asp-controller="Book" asp-action="Details" class="btn btn-info"
-                               asp-route-id="@Item.BookPdf">Book Details</a>
-</td>
-                    </tr>
-                }
-
-            </table>
-            <a class="btn btn-info" asp-controller="Customers" asp-action="OrderHistory">Back</a>
-            <br />
+</table>
+<a class="btn btn-info" asp-controller="Customers" asp-action="OrderHistory">Back</a>
+<br />
 
 
-
-        </div>
-    </div>
-</div>

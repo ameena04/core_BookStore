@@ -244,5 +244,13 @@ namespace OnlineBookStoreUser.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("search")]
+        [HttpGet]
+        public IActionResult Search(string search)
+        {
+            ViewBag.Book = context.Books.Where(x => x.BookName == search || x.Author.AuthorName == search || x.BookCategory.BookCategoryName == search || x.Publication.PublicationName == search || search == null).ToList();
+            return View(context.Books.Where(x => x.BookName == search || x.Author.AuthorName == search || x.BookCategory.BookCategoryName == search || x.Publication.PublicationName == search || search == null).ToList());
+        }
+
     }
 }

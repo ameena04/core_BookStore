@@ -115,13 +115,13 @@ namespace OnlineBookStoreUser.Controllers
             }
             return -1;
         }
-        [Route("details")]
-        public ActionResult Details(int id)
-        {
-            Books bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
-            context.SaveChanges();
-            return View(bk);
-        }
+        //[Route("details")]
+        //public ActionResult Details(int id)
+        //{
+        //    Books bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
+        //    context.SaveChanges();
+        //    return View(bk);
+        //}
 
         [Route("checkout/{id}")]
         [HttpGet]

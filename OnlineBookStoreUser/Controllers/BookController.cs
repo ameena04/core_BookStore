@@ -12,13 +12,13 @@ namespace OnlineBookStoreUser.Controllers
     {
         Book_Store_DbContext context = new Book_Store_DbContext();
 
-        public IActionResult BookCategoryIndex()
-        {
-            ViewBag.bookcategoryAuthor = context.Books.Include(c => c.Author).ToList();
-            ViewBag.bookcategoryPublication = context.Books.Include(p => p.Publication).ToList();
-            ViewBag.bookcategoryBook = context.Books.ToList();
-            return View();
-        }
+        //public IActionResult BookCategoryIndex()
+        //{
+        //    ViewBag.bookcategoryAuthor = context.Books.Include(c => c.Author).ToList();
+        //    ViewBag.bookcategoryPublication = context.Books.Include(p => p.Publication).ToList();
+        //    ViewBag.bookcategoryBook = context.Books.ToList();
+        //    return View();
+        //}
 
 
         public ActionResult Details(int id)

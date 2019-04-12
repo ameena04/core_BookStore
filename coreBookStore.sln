@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coreBookStore", "coreBookStore\coreBookStore.csproj", "{87BCFF90-8212-4905-B638-6BDC07A49B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineBookStoreUser", "OnlineBookStoreUser\OnlineBookStoreUser.csproj", "{3F18D65C-DB5C-46BB-9450-6D47D32A569B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineBookStoreUser", "OnlineBookStoreUser\OnlineBookStoreUser.csproj", "{3F18D65C-DB5C-46BB-9450-6D47D32A569B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineBookStoreUserTesting", "OnlineBookStoreUserTesting\OnlineBookStoreUserTesting.csproj", "{B8DEDB60-23FE-4B32-A6DD-A83999FA708A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3F18D65C-DB5C-46BB-9450-6D47D32A569B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F18D65C-DB5C-46BB-9450-6D47D32A569B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F18D65C-DB5C-46BB-9450-6D47D32A569B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8DEDB60-23FE-4B32-A6DD-A83999FA708A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8DEDB60-23FE-4B32-A6DD-A83999FA708A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8DEDB60-23FE-4B32-A6DD-A83999FA708A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8DEDB60-23FE-4B32-A6DD-A83999FA708A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

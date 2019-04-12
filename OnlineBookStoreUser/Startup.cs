@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineBookStoreUser.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OnlineBookStoreUser.Models;
 
 namespace OnlineBookStoreUser
 {
@@ -41,6 +42,7 @@ namespace OnlineBookStoreUser
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<Book_Store_DbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("dbConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

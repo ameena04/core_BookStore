@@ -12,7 +12,14 @@ namespace OnlineBookStoreUser.Controllers
     [Route("cart")]
     public class CartController : Controller
     {
-        Book_Store_DbContext context = new Book_Store_DbContext();
+        private readonly Book_Store_DbContext _context;
+
+        public CartController(Book_Store_DbContext context)
+        {
+            _context = context;
+        }
+
+
         [Route("index")]
         public IActionResult Index()
         {
@@ -48,7 +55,7 @@ namespace OnlineBookStoreUser.Controllers
 
                 booklist.Add(new Item
                 {
-                    Books = context.Books.Find(id),
+                    Books = _context.Books.Find(id),
                     Quantity = 1
                 });
                 
@@ -68,7 +75,7 @@ namespace OnlineBookStoreUser.Controllers
                 {
                     cart.Add(new Item
                     {
-                        Books = context.Books.Find(id),
+                        Books = _context.Books.Find(id),
                         Quantity = 1
                     });
                 }
@@ -130,7 +137,7 @@ namespace OnlineBookStoreUser.Controllers
             int i = 0;
             ViewBag.i = i;
 
-            var customers = context.Customers.Where(x => x.CustomerId == id).SingleOrDefault();
+            var customers = _context.Customers.Where(x => x.CustomerId == id).SingleOrDefault();
 
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;
@@ -153,8 +160,8 @@ namespace OnlineBookStoreUser.Controllers
                 OrderDate = DateTime.Now,
                 CustomerId = id
             };
-            context.Orders.Add(ord);
-            context.SaveChanges();
+            _context.Orders.Add(ord);
+            _context.SaveChanges();
             //    return RedirectToAction("Payment");
             //}
             //return View(customers);
@@ -171,8 +178,8 @@ namespace OnlineBookStoreUser.Controllers
                 };
                 orderBooks.Add(orderBook);
             }
-            orderBooks.ForEach(n => context.OrderBooks.Add(n));
-            context.SaveChanges();
+            orderBooks.ForEach(n => _context.OrderBooks.Add(n));
+            _context.SaveChanges();
             TempData["cust"] = id;
             return RedirectToAction("Invoice", "Cart");
         }
@@ -191,7 +198,7 @@ namespace OnlineBookStoreUser.Controllers
         public IActionResult Invoice()
         {
             int CustId = int.Parse(TempData["cust"].ToString());
-            Customers customers = context.Customers.Where(x => x.CustomerId == CustId).SingleOrDefault();
+            Customers customers = _context.Customers.Where(x => x.CustomerId == CustId).SingleOrDefault();
             ViewBag.Customers = customers;
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;
@@ -218,7 +225,7 @@ namespace OnlineBookStoreUser.Controllers
             {
                 cart.Add(new Item
                 {
-                    Books = context.Books.Find(id),
+                    Books = _context.Books.Find(id),
                     Quantity = 1
                 });
             }
@@ -248,8 +255,8 @@ namespace OnlineBookStoreUser.Controllers
         [HttpGet]
         public IActionResult Search(string search)
         {
-            ViewBag.Book = context.Books.Where(x => x.BookName == search || x.Author.AuthorName == search || x.BookCategory.BookCategoryName == search || x.Publication.PublicationName == search || search == null).ToList();
-            return View(context.Books.Where(x => x.BookName == search || x.Author.AuthorName == search || x.BookCategory.BookCategoryName == search || x.Publication.PublicationName == search || search == null).ToList());
+            ViewBag.Book = _context.Books.Where(x => x.BookName == search || x.Author.AuthorName == search || x.BookCategory.BookCategoryName == search || x.Publication.PublicationName == search || search == null).ToList();
+            return View(_context.Books.Where(x => x.BookName == search || x.Author.AuthorName == search || x.BookCategory.BookCategoryName == search || x.Publication.PublicationName == search || search == null).ToList());
         }
 
     }

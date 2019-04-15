@@ -15,13 +15,16 @@ namespace OnlineBookStoreUser.Models
         {
         }
 
+        public virtual DbSet<Admins> Admins { get; set; }
         public virtual DbSet<Authors> Authors { get; set; }
         public virtual DbSet<BookCategories> BookCategories { get; set; }
         public virtual DbSet<Books> Books { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<OrderBooks> OrderBooks { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<Payments> Payments { get; set; }
         public virtual DbSet<Publications> Publications { get; set; }
+        public virtual DbSet<Reviews> Reviews { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,6 +37,11 @@ namespace OnlineBookStoreUser.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Admins>(entity =>
+            {
+                entity.HasKey(e => e.AdminId);
+            });
+
             modelBuilder.Entity<Authors>(entity =>
             {
                 entity.HasKey(e => e.AuthorId);
@@ -104,9 +112,19 @@ namespace OnlineBookStoreUser.Models
                     .HasForeignKey(d => d.CustomerId);
             });
 
+            modelBuilder.Entity<Payments>(entity =>
+            {
+                entity.HasKey(e => e.PaymentId);
+            });
+
             modelBuilder.Entity<Publications>(entity =>
             {
                 entity.HasKey(e => e.PublicationId);
+            });
+
+            modelBuilder.Entity<Reviews>(entity =>
+            {
+                entity.HasKey(e => e.ReviewId);
             });
         }
     }

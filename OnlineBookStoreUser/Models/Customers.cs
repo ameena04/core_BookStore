@@ -21,7 +21,7 @@ namespace OnlineBookStoreUser.Models
         public long ZipCode { get; set; }
         public long Contact { get; set; }
         public bool BillingAddress { get; set; }
-        public bool ShippingAddress { get; set; }
+        public string ShippingAddress { get; set; }
 
         public ICollection<Orders> Orders { get; set; }
     }

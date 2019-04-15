@@ -10,7 +10,7 @@ using coreBookStore.Models;
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20190406114141_1")]
+    [Migration("20190415092148_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,21 @@ namespace coreBookStore.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("coreBookStore.Models.Admin", b =>
+                {
+                    b.Property<int>("AdminId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdminPassword");
+
+                    b.Property<string>("AdminUserName");
+
+                    b.HasKey("AdminId");
+
+                    b.ToTable("Admins");
+                });
 
             modelBuilder.Entity("coreBookStore.Models.Author", b =>
                 {
@@ -112,7 +127,7 @@ namespace coreBookStore.Migrations
 
                     b.Property<string>("OldPassword");
 
-                    b.Property<bool>("ShippingAddress");
+                    b.Property<string>("ShippingAddress");
 
                     b.Property<string>("UserName");
 
@@ -161,6 +176,27 @@ namespace coreBookStore.Migrations
                     b.ToTable("OrderBooks");
                 });
 
+            modelBuilder.Entity("coreBookStore.Models.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("Amount");
+
+                    b.Property<long>("CardLastDigits");
+
+                    b.Property<DateTime>("PaymentDate");
+
+                    b.Property<string>("PaymentDescription");
+
+                    b.Property<string>("StripePaymentId");
+
+                    b.HasKey("PaymentId");
+
+                    b.ToTable("Payments");
+                });
+
             modelBuilder.Entity("coreBookStore.Models.Publication", b =>
                 {
                     b.Property<int>("PublicationId")
@@ -176,6 +212,21 @@ namespace coreBookStore.Migrations
                     b.HasKey("PublicationId");
 
                     b.ToTable("Publications");
+                });
+
+            modelBuilder.Entity("coreBookStore.Models.Review", b =>
+                {
+                    b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ReviewMessage");
+
+                    b.Property<string>("ReviewSubject");
+
+                    b.HasKey("ReviewId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("coreBookStore.Models.Book", b =>

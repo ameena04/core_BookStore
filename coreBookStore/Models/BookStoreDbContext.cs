@@ -9,15 +9,17 @@ namespace coreBookStore.Models
     public class BookStoreDbContext : DbContext
     {
         private object b;
-
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publication> Publications { get; set; }
         public DbSet<BookCategory> BookCategories { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
-
         public DbSet<OrderBook> OrderBooks { get; set; }
+     
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=TRD-511;Initial Catalog=Book_Store_Db;Integrated Security=true;");

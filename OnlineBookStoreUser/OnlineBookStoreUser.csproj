@@ -18,6 +18,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.7" PrivateAssets="All" />
+    <PackageReference Include="Stripe.net" Version="25.6.0" />
   </ItemGroup>
 
   <ItemGroup>

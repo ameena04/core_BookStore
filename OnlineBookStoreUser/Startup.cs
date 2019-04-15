@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using OnlineBookStoreUser.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnlineBookStoreUser.Models;
+using Stripe;
 
 namespace OnlineBookStoreUser
 {
@@ -42,6 +44,7 @@ namespace OnlineBookStoreUser
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddDbContext<Book_Store_DbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("dbConnection")));
         }
 
@@ -58,7 +61,7 @@ namespace OnlineBookStoreUser
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

@@ -1,4 +1,4 @@
-﻿
+﻿@model coreBookStore.Models.Admin
 @{
     Layout = null;
 }
@@ -14,19 +14,33 @@
     <link rel="stylesheet" href="~/css/Login.css" />
 </head>
 <body class="text-center">
-    <p>@ViewBag.Error</p>
 
-    <form class="form-signin" method="post" asp-controller="account" asp-action="login">
+
+    <form class="form-signin" method="post" asp-controller="Admin" asp-action="Index">
         <img class="mb-4" src="~/images/logo.jpg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="username" class="sr-only">UserName</label>
-        <input type="text" name="username" class="form-control" placeholder="username" required autofocus>
+        <input asp-for="AdminUserName" type="text" name="AdminUserNAme
+               " class="form-control" placeholder="username" required autofocus>
         <label for="password" class="sr-only">Password</label>
         <input type="password" name="password" class="form-control" placeholder="Password" required>
-
+        <p>@ViewBag.Error</p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
     </form>
+
+
+    @*<form class="form-signin" method="post" asp-controller="account" asp-action="login">
+            <img class="mb-4" src="~/images/logo.jpg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="username" class="sr-only">UserName</label>
+            <input type="text" name="username" class="form-control" placeholder="username" required autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <p>@ViewBag.Error</p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+        </form>*@
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

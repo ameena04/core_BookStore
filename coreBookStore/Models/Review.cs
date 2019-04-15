@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace coreBookStore.Models
 {
-    public class Order
+    public class Review
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int OrderId { get; set; }
-        public DateTime OrderDate { get; set; }
-        public float OrderAmount { get; set; }
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        public int ReviewId { get; set; }
+        public string ReviewSubject { get; set; }
+        public string ReviewMessage { get; set; }
+       
 
-        
-        public List<OrderBook> OrderBook { get; set; }
     }
 }

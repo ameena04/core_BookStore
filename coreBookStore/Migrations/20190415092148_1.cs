@@ -9,6 +9,20 @@ namespace coreBookStore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Admins",
+                columns: table => new
+                {
+                    AdminId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AdminUserName = table.Column<string>(nullable: true),
+                    AdminPassword = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admins", x => x.AdminId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Authors",
                 columns: table => new
                 {
@@ -54,11 +68,28 @@ namespace coreBookStore.Migrations
                     ZipCode = table.Column<long>(nullable: false),
                     Contact = table.Column<long>(nullable: false),
                     BillingAddress = table.Column<bool>(nullable: false),
-                    ShippingAddress = table.Column<bool>(nullable: false)
+                    ShippingAddress = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    PaymentId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    StripePaymentId = table.Column<string>(nullable: true),
+                    Amount = table.Column<float>(nullable: false),
+                    PaymentDate = table.Column<DateTime>(nullable: false),
+                    PaymentDescription = table.Column<string>(nullable: true),
+                    CardLastDigits = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.PaymentId);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,6 +105,20 @@ namespace coreBookStore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Publications", x => x.PublicationId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    ReviewId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ReviewSubject = table.Column<string>(nullable: true),
+                    ReviewMessage = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.ReviewId);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,7 +238,16 @@ namespace coreBookStore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Admins");
+
+            migrationBuilder.DropTable(
                 name: "OrderBooks");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "Books");

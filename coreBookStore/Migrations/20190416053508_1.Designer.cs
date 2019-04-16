@@ -10,7 +10,7 @@ using coreBookStore.Models;
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20190415092148_1")]
+    [Migration("20190416053508_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,10 @@ namespace coreBookStore.Migrations
                     b.Property<string>("AdminUserName");
 
                     b.HasKey("AdminId");
+
+                    b.HasIndex("AdminUserName")
+                        .IsUnique()
+                        .HasFilter("[AdminUserName] IS NOT NULL");
 
                     b.ToTable("Admins");
                 });
@@ -182,17 +186,26 @@ namespace coreBookStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<float>("Amount");
+                    b.Property<long>("CardLastDigit");
 
-                    b.Property<long>("CardLastDigits");
+                    b.Property<int?>("CustomerId");
 
-                    b.Property<DateTime>("PaymentDate");
+                    b.Property<DateTime>("DateOfPayment");
+
+                    b.Property<int>("OrderId");
+
+                    b.Property<float>("PaymentAmount");
 
                     b.Property<string>("PaymentDescription");
 
                     b.Property<string>("StripePaymentId");
 
                     b.HasKey("PaymentId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
 
                     b.ToTable("Payments");
                 });
@@ -220,11 +233,19 @@ namespace coreBookStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BookId");
+
+                    b.Property<int>("CustomerId");
+
                     b.Property<string>("ReviewMessage");
 
                     b.Property<string>("ReviewSubject");
 
                     b.HasKey("ReviewId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Reviews");
                 });
@@ -265,6 +286,31 @@ namespace coreBookStore.Migrations
                     b.HasOne("coreBookStore.Models.Order", "Order")
                         .WithMany("OrderBook")
                         .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("coreBookStore.Models.Payment", b =>
+                {
+                    b.HasOne("coreBookStore.Models.Customer")
+                        .WithMany("Payment")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("coreBookStore.Models.Order", "Order")
+                        .WithOne("Payment")
+                        .HasForeignKey("coreBookStore.Models.Payment", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("coreBookStore.Models.Review", b =>
+                {
+                    b.HasOne("coreBookStore.Models.Book", "Book")
+                        .WithMany("Review")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("coreBookStore.Models.Customer", "Customer")
+                        .WithMany("Review")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

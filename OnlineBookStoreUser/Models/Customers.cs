@@ -8,6 +8,8 @@ namespace OnlineBookStoreUser.Models
         public Customers()
         {
             Orders = new HashSet<Orders>();
+            Payments = new HashSet<Payments>();
+            Reviews = new HashSet<Reviews>();
         }
 
         public int CustomerId { get; set; }
@@ -24,5 +26,7 @@ namespace OnlineBookStoreUser.Models
         public string ShippingAddress { get; set; }
 
         public ICollection<Orders> Orders { get; set; }
+        public ICollection<Payments> Payments { get; set; }
+        public ICollection<Reviews> Reviews { get; set; }
     }
 }

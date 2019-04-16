@@ -16,19 +16,23 @@ namespace coreBookStore.Models
         public DbSet<Book> Books { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
+
         public DbSet<OrderBook> OrderBooks { get; set; }
-     
-        public DbSet<Review> Reviews { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=TRD-511;Initial Catalog=Book_Store_Db;Integrated Security=true;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-             modelBuilder
-                .Entity<Customer>()
-                .HasIndex(u => u.UserName)
+            modelBuilder
+               .Entity<Customer>()
+               .HasIndex(u => u.UserName)
+               .IsUnique();
+            modelBuilder
+                .Entity<Admin>()
+                .HasIndex(a => a.AdminUserName)
                 .IsUnique();
 
 
@@ -38,6 +42,20 @@ namespace coreBookStore.Models
                     build.HasKey(b => new { b.OrderId, b.BookId });
                 }
                 );
+
+
+            modelBuilder.Entity<Payment>()
+         .HasOne(p => p.Order)
+         .WithOne(b => b.Payment)
+         .OnDelete(DeleteBehavior.Cascade);
+
+       
+
+            modelBuilder.Entity<Review>()
+        .HasOne(b => b.Book)
+        .WithMany(r => r.Review)
+        .OnDelete(DeleteBehavior.Cascade);
+
 
 
         }

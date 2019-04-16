@@ -14,7 +14,11 @@ namespace coreBookStore.Models
         public int ReviewId { get; set; }
         public string ReviewSubject { get; set; }
         public string ReviewMessage { get; set; }
-       
 
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
+
+        public int BookId { get; set; }
+        public Book Book { get; set; }
     }
 }

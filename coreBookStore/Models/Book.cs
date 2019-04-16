@@ -29,6 +29,7 @@ namespace coreBookStore.Models
 
 
 
+        public List<Review> Review { get; set; }
         public List<OrderBook> OrderBook { get; set; }
 
     }

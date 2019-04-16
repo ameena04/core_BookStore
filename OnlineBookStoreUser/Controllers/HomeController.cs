@@ -38,6 +38,21 @@ namespace OnlineBookStoreUser.Controllers
             return View(books);
 
         }
-        
+        [Route("search")]
+        [HttpPost]
+        public IActionResult Search(string Search)
+        {
+            if (Search == null)
+            {
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            //HttpContext.Session.SetString("Search", Search.ToString());
+
+            var Book = context.Books.Where(x => x.BookName == Search || x.BookCategory.BookCategoryName == Search || x.Author.AuthorName == Search || x.Publication.PublicationName == Search || Search == null).ToList();
+            return View(Book);
+        }
+
     }
 }

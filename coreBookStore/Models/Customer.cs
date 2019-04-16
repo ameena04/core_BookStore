@@ -24,7 +24,10 @@ namespace coreBookStore.Models
         public long Contact { get; set; }
         public bool BillingAddress { get; set; }
         public string ShippingAddress { get; set; }
-        
+
         public List<Order> Orders { get; set; }
+        
+        public List<Payment> Payment { get; set; }
+        public List<Review> Review { get; set; }
     }
 }

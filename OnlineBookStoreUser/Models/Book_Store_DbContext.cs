@@ -40,6 +40,10 @@ namespace OnlineBookStoreUser.Models
             modelBuilder.Entity<Admins>(entity =>
             {
                 entity.HasKey(e => e.AdminId);
+
+                entity.HasIndex(e => e.AdminUserName)
+                    .IsUnique()
+                    .HasFilter("([AdminUserName] IS NOT NULL)");
             });
 
             modelBuilder.Entity<Authors>(entity =>
@@ -115,6 +119,19 @@ namespace OnlineBookStoreUser.Models
             modelBuilder.Entity<Payments>(entity =>
             {
                 entity.HasKey(e => e.PaymentId);
+
+                entity.HasIndex(e => e.CustomerId);
+
+                entity.HasIndex(e => e.OrderId)
+                    .IsUnique();
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.CustomerId);
+
+                entity.HasOne(d => d.Order)
+                    .WithOne(p => p.Payments)
+                    .HasForeignKey<Payments>(d => d.OrderId);
             });
 
             modelBuilder.Entity<Publications>(entity =>
@@ -125,6 +142,18 @@ namespace OnlineBookStoreUser.Models
             modelBuilder.Entity<Reviews>(entity =>
             {
                 entity.HasKey(e => e.ReviewId);
+
+                entity.HasIndex(e => e.BookId);
+
+                entity.HasIndex(e => e.CustomerId);
+
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.Reviews)
+                    .HasForeignKey(d => d.BookId);
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Reviews)
+                    .HasForeignKey(d => d.CustomerId);
             });
         }
     }

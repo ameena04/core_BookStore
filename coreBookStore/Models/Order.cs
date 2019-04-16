@@ -17,7 +17,8 @@ namespace coreBookStore.Models
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        
+
         public List<OrderBook> OrderBook { get; set; }
+        public Payment Payment { get; set; }
     }
 }

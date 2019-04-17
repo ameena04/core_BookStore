@@ -11,10 +11,9 @@ namespace OnlineBookStoreUser.Models
         public DateTime DateOfPayment { get; set; }
         public string PaymentDescription { get; set; }
         public long CardLastDigit { get; set; }
+        public int CustomerId { get; set; }
         public int OrderId { get; set; }
-        public int? CustomerId { get; set; }
 
-        public Customers Customer { get; set; }
         public Orders Order { get; set; }
     }
 }

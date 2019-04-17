@@ -186,7 +186,7 @@ namespace coreBookStore.Migrations
 
                     b.Property<long>("CardLastDigit");
 
-                    b.Property<int?>("CustomerId");
+                    b.Property<int>("CustomerId");
 
                     b.Property<DateTime>("DateOfPayment");
 
@@ -199,8 +199,6 @@ namespace coreBookStore.Migrations
                     b.Property<string>("StripePaymentId");
 
                     b.HasKey("PaymentId");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasIndex("OrderId")
                         .IsUnique();
@@ -269,7 +267,7 @@ namespace coreBookStore.Migrations
             modelBuilder.Entity("coreBookStore.Models.Order", b =>
                 {
                     b.HasOne("coreBookStore.Models.Customer", "Customer")
-                        .WithMany("Orders")
+                        .WithMany("Order")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -289,10 +287,6 @@ namespace coreBookStore.Migrations
 
             modelBuilder.Entity("coreBookStore.Models.Payment", b =>
                 {
-                    b.HasOne("coreBookStore.Models.Customer")
-                        .WithMany("Payment")
-                        .HasForeignKey("CustomerId");
-
                     b.HasOne("coreBookStore.Models.Order", "Order")
                         .WithOne("Payment")
                         .HasForeignKey("coreBookStore.Models.Payment", "OrderId")

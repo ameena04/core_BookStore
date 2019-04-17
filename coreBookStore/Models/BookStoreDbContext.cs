@@ -44,10 +44,7 @@ namespace coreBookStore.Models
                 );
 
 
-            modelBuilder.Entity<Payment>()
-         .HasOne(p => p.Order)
-         .WithOne(b => b.Payment)
-         .OnDelete(DeleteBehavior.Cascade);
+         
 
        
 

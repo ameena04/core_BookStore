@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineBookStoreUser.Helper;
 using OnlineBookStoreUser.Models;
+using Stripe;
 
 namespace OnlineBookStoreUser.Controllers
 {
@@ -157,7 +158,7 @@ namespace OnlineBookStoreUser.Controllers
         }
         [Route("checkout/{id}")]
         [HttpPost]
-        public IActionResult CheckOut(int id, Customers c)
+        public IActionResult CheckOut(int id, Customers c, string stripeEmail, string stripeToken)
         {
             // var cid = (TempData["cid"]).ToString();
             //context.Customers.Add(c);
@@ -190,8 +191,62 @@ namespace OnlineBookStoreUser.Controllers
             orderBooks.ForEach(n => _context.OrderBooks.Add(n));
             _context.SaveChanges();
             TempData["cust"] = id;
-            return RedirectToAction("Index", "Payment");
+            //return RedirectToAction("Index", "Payment");
+
+
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+            var Amount = TempData["total"];
+            var order = ord.OrderId;
+            var custmr = TempData["cust"];
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                SourceToken = stripeToken
+            });
+
+            var charge = charges.Create(new ChargeCreateOptions
+            {
+                Amount = 500,
+                Description = "Total Charge",
+                Currency = "usd",
+                CustomerId = customer.Id
+            });
+
+            Payments payment = new Payments();
+            {
+                payment.StripePaymentId = charge.PaymentMethodId;
+                payment.PaymentAmount = Convert.ToInt32(Amount);
+                payment.DateOfPayment = System.DateTime.Now;
+                payment.PaymentDescription = "Payment Initiated";
+                payment.CardLastDigit = Convert.ToInt32(charge.PaymentMethodDetails.Card.Last4);
+                payment.OrderId = Convert.ToInt32(order);
+                payment.CustomerId = Convert.ToInt32(custmr);
+            }
+
+            //_context.Add<Payments>(payment);
+            _context.Payments.Add(payment);
+            _context.SaveChanges();
+
+            return RedirectToAction("Invoice", "Cart");
+
+          
+
+
         }
+        public IActionResult PaymentIndex()
+        {
+            var checkout = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+            ViewBag.checkout = checkout;
+            ViewBag.total = checkout.Sum(item => item.Books.BookPrice * item.Quantity);
+            return View();
+        }
+
+        public IActionResult Error()
+        {
+            return View();
+        }
+
 
         //return View(customers);
 

@@ -17,7 +17,7 @@ namespace coreBookStore.Models
         public DateTime DateOfPayment { get; set; }
         public string PaymentDescription { get; set; }
         public long CardLastDigit { get; set; }
-       
+        public int CustomerId { get; set; }
         public int OrderId { get; set; }
 
         public Order Order { get; set; }

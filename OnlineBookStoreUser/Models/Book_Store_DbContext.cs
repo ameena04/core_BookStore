@@ -120,14 +120,8 @@ namespace OnlineBookStoreUser.Models
             {
                 entity.HasKey(e => e.PaymentId);
 
-                entity.HasIndex(e => e.CustomerId);
-
                 entity.HasIndex(e => e.OrderId)
                     .IsUnique();
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.CustomerId);
 
                 entity.HasOne(d => d.Order)
                     .WithOne(p => p.Payments)

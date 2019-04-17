@@ -30,7 +30,8 @@
                 <li class="list-group-item"><h3><i class="glyphicon glyphicon-edit" aria-hidden="true"></i>&nbsp;&nbsp;Edit Basic Information</h3></li>
 
             </div>
-            <form asp-controller="Customers" asp-action="Edit">
+            <form asp-controller="Customers" asp-action="Edit" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <ul class="list-group list-group-flush">
                     @Html.HiddenFor(model => model.CustomerId)
                     @Html.HiddenFor(model => model.UserName)
@@ -40,9 +41,13 @@
                     @Html.HiddenFor(model => model.ZipCode)
                     @Html.HiddenFor(model => model.ShippingAddress)
                     <li class="list-group-item">First Name :  <input type="text" asp-for="FirstName" class="form-control" /></li>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
                     <li class="list-group-item">Last Name : <input type="text" asp-for="LastName" class="form-control" /></li>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                     <li class="list-group-item">Email : <input type="text" asp-for="Email" class="form-control" /></li>
+                    <span asp-validation-for="Email" class="text-danger"></span>
                     <li class="list-group-item">Contact : <input type="text" asp-for="Contact" class="form-control" /></li>
+                    <span asp-validation-for="Contact" class="text-danger"></span>
                     <li class="list-group-item">   <center> <input type="submit" value="Edit" class="btn btn-primary" /></li> </center>
                 </ul>
 

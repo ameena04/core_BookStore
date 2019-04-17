@@ -12,6 +12,7 @@ namespace coreBookStore.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerId { get; set; }
+     
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
@@ -25,9 +26,7 @@ namespace coreBookStore.Models
         public bool BillingAddress { get; set; }
         public string ShippingAddress { get; set; }
 
-        public List<Order> Orders { get; set; }
-        
-        public List<Payment> Payment { get; set; }
+          public List<Order> Order { get; set; }   
         public List<Review> Review { get; set; }
     }
 }

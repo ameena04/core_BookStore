@@ -32,13 +32,14 @@ namespace OnlineBookStoreUser.Controllers
         {
             var customers = new CustomerService();
             var charges = new ChargeService();
-
+            var Amount = TempData["total"];
+            var order = TempData["orderId"];
+            var custmr = TempData["cust"];
             var customer = customers.Create(new CustomerCreateOptions
             {
                 Email = stripeEmail,
                 SourceToken = stripeToken
             });
-
             var charge = charges.Create(new ChargeCreateOptions
             {
                 Amount = 500,
@@ -47,18 +48,15 @@ namespace OnlineBookStoreUser.Controllers
                 CustomerId = customer.Id
             });
 
-            Payments payment = new Payments()
+            Payments payment = new Payments();
             {
-                StripePaymentId = charge.PaymentMethodId,
-                PaymentAmount = 500,
-                
-                DateOfPayment = System.DateTime.Now,
-                PaymentDescription = "Payment Initiated..",
-                CardLastDigit = Convert.ToInt32(charge.PaymentMethodDetails.Card.Last4),
-
-                CustomerId = 1,
-                OrderId = 2
-            };
+            payment.StripePaymentId = charge.PaymentMethodId;
+            payment.PaymentAmount = Convert.ToInt32(Amount);
+            payment.DateOfPayment = System.DateTime.Now;
+            payment.CardLastDigit = Convert.ToInt32(charge.PaymentMethodDetails.Card.Last4);
+            payment.OrderId = Convert.ToInt32(order);
+            payment.CustomerId = Convert.ToInt32(custmr);
+          };
 
             _context.Add<Payments>(payment);
 

@@ -1,0 +1,30 @@
+﻿@model coreBookStore.Models.OrderBook
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-hover">
+    <tr>
+
+        <th>BookId</th>
+        <th>BookName</th>
+
+        <th>Action</th>
+    </tr>
+    @foreach (var Item in ViewBag.bookDetail)
+    {
+        <tr>
+
+            <td>@Item.BookId</td>
+            <td>@Item.BookName</td>
+
+        </tr>
+    }
+
+</table>
+
+<br />
+
+
+<a asp-action="Index" asp-controller="Orders" class="btn btn-primary">Back To List</a>

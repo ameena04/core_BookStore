@@ -125,12 +125,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <a asp-controller="Cart" asp-action="Index">
                                 <h3>
                                     @*<div class="total">
-            <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
-        </div>*@
-                                      @Context.Session.GetString("CartItem")  <img src="~/images/bag.png" alt="" />
+                                        <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
+                                    </div>*@
+                                    @Context.Session.GetString("CartItem")  <img src="~/images/bag.png" alt="" />
                                 </h3>
                             </a>
-                            
+
                             <div class="clearfix"> </div>
                         </div>
                     </div>
@@ -149,16 +149,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <!-- //collections -->
 
-        <div class="newsletter animated wow slideInUp" data-wow-delay=".5s">
-            <h3>Newsletter</h3>
-            <p>Join us now to get all news and special offers.</p>
-            <form>
-                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                <input type="email" value="Enter your email address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email address';}" required="">
-                <input type="submit" value="Join Us">
-            </form>
-        </div>
-
+        <br />
+        <br />
         <!-- //collections-bottom -->
         <!-- footer -->
         <div class="footer">

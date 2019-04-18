@@ -1,13 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using coreBookStoreApi.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace coreBookStore.Models
+namespace coreBookStoreApi.Models
 {
     public class BookStoreDbContext : DbContext
     {
+        public BookStoreDbContext()
+        {
+
+        }
+
+
+        public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options) : base(options)
+        {
+
+        }
         private object b;
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Author> Authors { get; set; }
@@ -22,14 +33,14 @@ namespace coreBookStore.Models
         public DbSet<Review> Reviews { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=TRD-511;Initial Catalog=Book_Store_Db;Integrated Security=true;");
+           // optionsBuilder.UseSqlServer("Data Source=TRD-511;Initial Catalog=Book_Store_Db;Integrated Security=true;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                 .Entity<Customer>()
-                 .HasIndex(u => u.UserName)
-                 .IsUnique();
+               .Entity<Customer>()
+               .HasIndex(u => u.UserName)
+               .IsUnique();
             modelBuilder
                 .Entity<Admin>()
                 .HasIndex(a => a.AdminUserName)
@@ -42,8 +53,8 @@ namespace coreBookStore.Models
                     build.HasKey(b => new { b.OrderId, b.BookId });
                 }
                 );
-
-
+            
+         
             modelBuilder.Entity<Review>()
              .HasOne(b => b.Book)
              .WithMany(r => r.Review)
@@ -83,7 +94,7 @@ namespace coreBookStore.Models
                 .HasMaxLength(60)
                 .IsUnicode(false);
             });
-
+           
             base.OnModelCreating(modelBuilder);
         }
 

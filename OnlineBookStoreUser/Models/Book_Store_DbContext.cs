@@ -30,7 +30,7 @@ namespace OnlineBookStoreUser.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=TRD-511;Database=Book_Store_Db;Integrated Security=true");
             }
         }
@@ -49,11 +49,19 @@ namespace OnlineBookStoreUser.Models
             modelBuilder.Entity<Authors>(entity =>
             {
                 entity.HasKey(e => e.AuthorId);
+
+                entity.Property(e => e.AuthorName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<BookCategories>(entity =>
             {
                 entity.HasKey(e => e.BookCategoryId);
+
+                entity.Property(e => e.BookCategoryName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Books>(entity =>
@@ -65,6 +73,10 @@ namespace OnlineBookStoreUser.Models
                 entity.HasIndex(e => e.BookCategoryId);
 
                 entity.HasIndex(e => e.PublicationId);
+
+                entity.Property(e => e.BookName)
+                    .HasMaxLength(60)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Author)
                     .WithMany(p => p.Books)
@@ -131,6 +143,10 @@ namespace OnlineBookStoreUser.Models
             modelBuilder.Entity<Publications>(entity =>
             {
                 entity.HasKey(e => e.PublicationId);
+
+                entity.Property(e => e.PublicationName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Reviews>(entity =>
@@ -139,15 +155,16 @@ namespace OnlineBookStoreUser.Models
 
                 entity.HasIndex(e => e.BookId);
 
-                entity.HasIndex(e => e.CustomerId);
+                entity.HasIndex(e => e.CustomerId)
+                    .IsUnique();
 
                 entity.HasOne(d => d.Book)
                     .WithMany(p => p.Reviews)
                     .HasForeignKey(d => d.BookId);
 
                 entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Reviews)
-                    .HasForeignKey(d => d.CustomerId);
+                    .WithOne(p => p.Reviews)
+                    .HasForeignKey<Reviews>(d => d.CustomerId);
             });
         }
     }

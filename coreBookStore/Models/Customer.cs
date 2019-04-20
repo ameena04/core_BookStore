@@ -26,7 +26,7 @@ namespace coreBookStore.Models
         public bool BillingAddress { get; set; }
         public string ShippingAddress { get; set; }
 
-          public List<Order> Order { get; set; }   
-        public List<Review> Review { get; set; }
+        public List<Order> Order { get; set; }   
+        public Review Review { get; set; }
     }
 }

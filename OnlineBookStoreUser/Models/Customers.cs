@@ -9,7 +9,6 @@ namespace OnlineBookStoreUser.Models
         public Customers()
         {
             Orders = new HashSet<Orders>();
-            Reviews = new HashSet<Reviews>();
         }
 
         public int CustomerId { get; set; }
@@ -21,6 +20,7 @@ namespace OnlineBookStoreUser.Models
         [Required(ErrorMessage = "User Name is Required")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Email is Required")]
+
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$",
         ErrorMessage = "Please enter valid email id.")]
         public string Email { get; set; }
@@ -39,7 +39,8 @@ namespace OnlineBookStoreUser.Models
         public long Contact { get; set; }
         public bool BillingAddress { get; set; }
         public string ShippingAddress { get; set; }
+
+        public Reviews Reviews { get; set; }
         public ICollection<Orders> Orders { get; set; }
-        public ICollection<Reviews> Reviews { get; set; }
     }
 }

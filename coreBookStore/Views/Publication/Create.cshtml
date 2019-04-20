@@ -10,15 +10,7 @@
 <h2><center><b><u>Add Publication</u></b></center></h2>
 <br />
 
-@*<form asp-action="Create" asp-controller="Publication">
-        <label asp-for="PublicationName"></label>
-        <input type="text" asp-for="PublicationName" />
-        <br />
-        <label asp-for="PublicationDescription"></label>
-        <input type="text" asp-for="PublicationDescription" />
-        <br />
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </form>*@
+
 
 <form asp-action="Create" asp-controller="Publication">
 
@@ -36,6 +28,9 @@
         <label asp-for="PublicationImage"><b>Publication Image</b></label>
         <input type="text" asp-for="PublicationImage" class="form-control" placeholder="Enter Publication Image">
     </div>
+
+   
+
 
     <button type="submit" class="btn btn-primary">Submit</button>
     <a asp-controller="Publication" asp-action="Index" class="btn btn-primary">Back To List</a>

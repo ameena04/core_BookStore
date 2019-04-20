@@ -27,9 +27,9 @@ namespace coreBookStore.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                 .Entity<Customer>()
-                 .HasIndex(u => u.UserName)
-                 .IsUnique();
+               .Entity<Customer>()
+               .HasIndex(u => u.UserName)
+               .IsUnique();
             modelBuilder
                 .Entity<Admin>()
                 .HasIndex(a => a.AdminUserName)
@@ -43,6 +43,10 @@ namespace coreBookStore.Models
                 }
                 );
 
+            modelBuilder.Entity<Payment>()
+        .HasOne(p => p.Order)
+        .WithOne(b => b.Payments)
+        .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Review>()
              .HasOne(b => b.Book)
@@ -89,4 +93,5 @@ namespace coreBookStore.Models
 
     }
 }
+
 

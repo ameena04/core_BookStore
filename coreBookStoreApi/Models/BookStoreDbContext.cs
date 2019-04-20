@@ -53,8 +53,12 @@ namespace coreBookStoreApi.Models
                     build.HasKey(b => new { b.OrderId, b.BookId });
                 }
                 );
-            
-         
+
+            modelBuilder.Entity<Payment>()
+        .HasOne(p => p.Order)
+        .WithOne(b => b.Payment)
+        .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Review>()
              .HasOne(b => b.Book)
              .WithMany(r => r.Review)

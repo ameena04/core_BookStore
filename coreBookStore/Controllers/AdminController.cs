@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +13,7 @@ namespace coreBookStore.Controllers
     public class AdminController : Controller
     {
         BookStoreDbContext context = new BookStoreDbContext();
+
         [Route("")]
         [Route("index")]
         [Route("~/")]
@@ -31,6 +31,7 @@ namespace coreBookStore.Controllers
             var user = context.Admins.Where(x => x.AdminUserName == username).SingleOrDefault();
             if (username == null)
             {
+
                 ViewBag.Error = "Invalid Credential";
                 return View("Index");
             }
@@ -42,6 +43,7 @@ namespace coreBookStore.Controllers
                 if (username != null && password != null && username.Equals(userName) && password.Equals(Password))
                 {
                     HttpContext.Session.SetString("uname", username);
+                  
                     return View("Home");
                 }
                 else

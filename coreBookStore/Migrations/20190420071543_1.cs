@@ -28,7 +28,7 @@ namespace coreBookStore.Migrations
                 {
                     AuthorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AuthorName = table.Column<string>(nullable: true),
+                    AuthorName = table.Column<string>(unicode: false, maxLength: 50, nullable: true),
                     AuthorDescription = table.Column<string>(nullable: true),
                     AuthorImage = table.Column<string>(nullable: true)
                 },
@@ -43,7 +43,7 @@ namespace coreBookStore.Migrations
                 {
                     BookCategoryId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BookCategoryName = table.Column<string>(nullable: true),
+                    BookCategoryName = table.Column<string>(unicode: false, maxLength: 50, nullable: true),
                     BookCategoryDescription = table.Column<string>(nullable: true),
                     BookCategoryImage = table.Column<string>(nullable: true)
                 },
@@ -81,7 +81,7 @@ namespace coreBookStore.Migrations
                 {
                     PublicationId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    PublicationName = table.Column<string>(nullable: true),
+                    PublicationName = table.Column<string>(unicode: false, maxLength: 40, nullable: true),
                     PublicationDescription = table.Column<string>(nullable: true),
                     PublicationImage = table.Column<string>(nullable: true)
                 },
@@ -117,7 +117,7 @@ namespace coreBookStore.Migrations
                 {
                     BookId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BookName = table.Column<string>(nullable: true),
+                    BookName = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
                     BookType = table.Column<string>(nullable: true),
                     BookDescription = table.Column<string>(nullable: true),
                     BookPrice = table.Column<float>(nullable: false),
@@ -277,7 +277,8 @@ namespace coreBookStore.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_CustomerId",
                 table: "Reviews",
-                column: "CustomerId");
+                column: "CustomerId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

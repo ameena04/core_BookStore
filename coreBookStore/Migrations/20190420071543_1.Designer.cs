@@ -10,7 +10,7 @@ using coreBookStore.Models;
 namespace coreBookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20190417094212_1")]
+    [Migration("20190420071543_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,7 +50,10 @@ namespace coreBookStore.Migrations
 
                     b.Property<string>("AuthorImage");
 
-                    b.Property<string>("AuthorName");
+                    b.Property<string>("AuthorName")
+                        .HasColumnName("AuthorName")
+                        .HasMaxLength(50)
+                        .IsUnicode(false);
 
                     b.HasKey("AuthorId");
 
@@ -71,7 +74,10 @@ namespace coreBookStore.Migrations
 
                     b.Property<string>("BookImage");
 
-                    b.Property<string>("BookName");
+                    b.Property<string>("BookName")
+                        .HasColumnName("BookName")
+                        .HasMaxLength(60)
+                        .IsUnicode(false);
 
                     b.Property<string>("BookPdf");
 
@@ -102,7 +108,10 @@ namespace coreBookStore.Migrations
 
                     b.Property<string>("BookCategoryImage");
 
-                    b.Property<string>("BookCategoryName");
+                    b.Property<string>("BookCategoryName")
+                        .HasColumnName("BookCategoryName")
+                        .HasMaxLength(50)
+                        .IsUnicode(false);
 
                     b.HasKey("BookCategoryId");
 
@@ -218,7 +227,10 @@ namespace coreBookStore.Migrations
 
                     b.Property<string>("PublicationImage");
 
-                    b.Property<string>("PublicationName");
+                    b.Property<string>("PublicationName")
+                        .HasColumnName("PublicationName")
+                        .HasMaxLength(40)
+                        .IsUnicode(false);
 
                     b.HasKey("PublicationId");
 
@@ -243,7 +255,8 @@ namespace coreBookStore.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
 
                     b.ToTable("Reviews");
                 });
@@ -290,7 +303,7 @@ namespace coreBookStore.Migrations
             modelBuilder.Entity("coreBookStore.Models.Payment", b =>
                 {
                     b.HasOne("coreBookStore.Models.Order", "Order")
-                        .WithOne("Payment")
+                        .WithOne("Payments")
                         .HasForeignKey("coreBookStore.Models.Payment", "OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -303,8 +316,8 @@ namespace coreBookStore.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("coreBookStore.Models.Customer", "Customer")
-                        .WithMany("Review")
-                        .HasForeignKey("CustomerId")
+                        .WithOne("Review")
+                        .HasForeignKey("coreBookStore.Models.Review", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

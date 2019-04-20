@@ -220,21 +220,7 @@ namespace OnlineBookStoreUser.Controllers
             return View();
         }
 
-        public ActionResult Repository(int id)
-        {
-
-            List<OrderBooks> ob = new List<OrderBooks>();
-            List<Books> books = new List<Books>();
-            ob = context.OrderBooks.Where(x => x.OrderId == id).ToList();
-            foreach (var item in ob)
-            {
-                Books c = context.Books.Where(x => x.BookId == item.BookId).SingleOrDefault();
-                books.Add(c);
-            }
-            ViewBag.bookDetail = books;
-            return View();
-
-        }
+      
 
 
 

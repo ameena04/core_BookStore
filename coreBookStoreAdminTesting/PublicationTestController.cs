@@ -50,21 +50,28 @@ namespace coreBookStoreAdminTesting
 
             //Arrange
             var controller = new PublicationController(context);
+            var publication = new Publication()
+            {
+                PublicationName = "Delta",
+                PublicationDescription = "Kate Bowler is an assistant professor of the history of Christianity in North America at Duke Divinity School. She is the author of Blessed: A History of the American Prosperity Gospel and Everything Happens for a Reason, which was a New York Times hardcover nonfiction best seller.",
+                PublicationImage = "123"
+            };
 
             //Act
-            var data = controller.Create();
+
+            var data = controller.Create(publication);
 
             //Assert
-            Assert.IsType<ViewResult>(data);
+            Assert.IsType<RedirectToActionResult>(data);
 
         }
 
         [Fact]
-        public void Task_Delete_Publication_Return_View()
+        public void Task_DeletePublication_Return_View()
         {
             //Arrange
             var controller = new PublicationController(context);
-            var id = 1;
+            var id = 7;
             //Act
             var data = controller.Delete(id);
 
@@ -72,7 +79,6 @@ namespace coreBookStoreAdminTesting
             Assert.IsType<ViewResult>(data);
 
         }
-
         [Fact]
         public void Task_Edit_Publication_Return_View()
         {

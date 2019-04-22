@@ -44,20 +44,6 @@ namespace coreBookStoreAdminTesting
 
         }
 
-        //[Fact]
-        //public void Task_Details_Order_Return_View()
-        //{
-        //    Assert.Throws<NotImplementedException>(() => {
-
-        //        //Arrange
-        //        var controller = new OrdersController(context);
-        //        int id = 1;
-        //        //Act
-        //        var data = controller.Details(id);
-
-        //        //Assert
-        //        Assert.IsType<ViewResult>(data);
-        //    });
-        //}
+       
     }
 }

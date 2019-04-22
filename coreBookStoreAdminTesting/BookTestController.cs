@@ -43,6 +43,7 @@ namespace coreBookStoreAdminTesting
 
         }
 
+
         [Fact]
         public void Task_Create_Book_Return_OkResult()
         {
@@ -50,21 +51,36 @@ namespace coreBookStoreAdminTesting
 
             //Arrange
             var controller = new BookController(context);
+            var book = new Book()
+            {
+                BookId = 22,
+                BookName = "Horror",
+                BookType = "e-book",
+                BookDescription = "description",
+                BookPrice = 500,
+                BookImage = "image",
+                AuthorId = 1,
+                PublicationId = 3,
+                BookCategoryId = 1,
+
+            };
 
             //Act
-            var data = controller.Create();
+
+            var data = controller.Create(book);
 
             //Assert
-            Assert.IsType<ViewResult>(data);
+            Assert.IsType<RedirectToActionResult>(data);
 
         }
+
 
         [Fact]
         public void Task_DeleteBook_Return_View()
         {
             //Arrange
             var controller = new BookController(context);
-            var id = 1;
+            var id = 22;
             //Act
             var data = controller.Delete(id);
 
@@ -81,17 +97,20 @@ namespace coreBookStoreAdminTesting
             {
                 //Arrange
                 var controller = new BookController(context);
-                int id = 1;
+                int id = 22;
 
 
                 var book = new Book()
                 {
-                    BookId = 1,
-                    BookName = "Horror",
+                    BookId =22,
+                    BookName = "Horror12",
                     BookType = "e-book",
                     BookDescription = "description",
                     BookPrice = 500,
                     BookImage = "image",
+                    AuthorId = 1,
+                    PublicationId = 3,
+                    BookCategoryId = 1,
 
                 };
 
@@ -103,6 +122,6 @@ namespace coreBookStoreAdminTesting
                 Assert.IsType<ViewResult>(EditData);
             });
         }
-    }
+}
 }
 

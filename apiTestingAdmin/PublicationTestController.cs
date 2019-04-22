@@ -65,7 +65,7 @@ namespace apiTestingAdmin
             var okResult = data.Should().BeOfType<OkObjectResult>().Subject;
             var publication = okResult.Value.Should().BeAssignableTo<Publication>().Subject;
             Assert.Equal("New Delhi Publisher", publication.PublicationName);
-            Assert.Equal("http://ndpublisher.in/images/default-logo.pn", publication.PublicationImage);
+            Assert.Equal("http://ndpublisher.in/images/default-logo.png", publication.PublicationImage);
         }
 
         //Get By Id Bad Request
@@ -116,7 +116,7 @@ namespace apiTestingAdmin
             var data = await controller.Post(publication);
 
             //Assert
-            Assert.IsType<CreatedAtActionResult>(data);
+            Assert.IsType<BadRequestResult>(data);
 
         }
 
@@ -159,7 +159,7 @@ namespace apiTestingAdmin
             var data = await controller.Delete(id);
 
             //Assert
-            Assert.IsType<OkObjectResult>(data);
+            Assert.IsType<NotFoundResult>(data);
 
         }
 

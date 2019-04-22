@@ -124,8 +124,6 @@ namespace coreBookStoreApi.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<bool>("BillingAddress");
-
                     b.Property<long>("Contact");
 
                     b.Property<string>("Email");
@@ -138,13 +136,15 @@ namespace coreBookStoreApi.Migrations
 
                     b.Property<string>("OldPassword");
 
-                    b.Property<string>("ShippingAddress");
+                    b.Property<int?>("ReviewId");
 
                     b.Property<string>("UserName");
 
                     b.Property<long>("ZipCode");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("ReviewId");
 
                     b.HasIndex("UserName")
                         .IsUnique()
@@ -253,8 +253,6 @@ namespace coreBookStoreApi.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("CustomerId");
-
                     b.ToTable("Reviews");
                 });
 
@@ -274,6 +272,13 @@ namespace coreBookStoreApi.Migrations
                         .WithMany("Books")
                         .HasForeignKey("PublicationId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("coreBookStoreApi.Models.Customer", b =>
+                {
+                    b.HasOne("coreBookStoreApi.Models.Review", "Review")
+                        .WithMany("Customer")
+                        .HasForeignKey("ReviewId");
                 });
 
             modelBuilder.Entity("coreBookStoreApi.Models.Order", b =>
@@ -300,7 +305,7 @@ namespace coreBookStoreApi.Migrations
             modelBuilder.Entity("coreBookStoreApi.Models.Payment", b =>
                 {
                     b.HasOne("coreBookStoreApi.Models.Order", "Order")
-                        .WithOne("Payment")
+                        .WithOne("Payments")
                         .HasForeignKey("coreBookStoreApi.Models.Payment", "OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -310,11 +315,6 @@ namespace coreBookStoreApi.Migrations
                     b.HasOne("coreBookStoreApi.Models.Book", "Book")
                         .WithMany("Review")
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("coreBookStoreApi.Models.Customer", "Customer")
-                        .WithMany("Review")
-                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

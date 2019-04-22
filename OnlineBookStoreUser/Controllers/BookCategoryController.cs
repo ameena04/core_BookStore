@@ -14,20 +14,25 @@ namespace OnlineBookStoreUser.Controllers
     {
 
 
-        Book_Store_DbContext context = new Book_Store_DbContext();
+        private readonly Book_Store_DbContext _context;
+
+        public BookCategoryController(Book_Store_DbContext context)
+        {
+            _context = context;
+        }
 
 
 
         public IActionResult Index()
         {
-            var bookCategory = context.BookCategories.ToList();
+            var bookCategory = _context.BookCategories.ToList();
             return View(bookCategory);
         }
 
 
         public IActionResult Display(int id)
         {
-            var book = context.Books.Where(x => x.BookCategoryId == id);
+            var book = _context.Books.Where(x => x.BookCategoryId == id);
             return View(book);
         }
 

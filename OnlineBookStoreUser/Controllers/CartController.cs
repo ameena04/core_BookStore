@@ -88,6 +88,11 @@ namespace OnlineBookStoreUser.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public object CheckOut(int id, Customers customers)
+        {
+            throw new NotImplementedException();
+        }
+
         [Route("remove/{id}")]
         public IActionResult Remove(int id)
         {
@@ -109,7 +114,12 @@ namespace OnlineBookStoreUser.Controllers
             }
             return RedirectToAction("Index");
         }
-    
+
+        public object EmptyCart(Customers customers)
+        {
+            throw new NotImplementedException();
+        }
+
         private int isExist(int id)
         {
             List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");

@@ -14,7 +14,12 @@ namespace OnlineBookStoreUser.Controllers
 {
     public class CustomersController : Controller
     {
-        Book_Store_DbContext context = new Book_Store_DbContext();
+        private readonly Book_Store_DbContext _context;
+
+        public CustomersController(Book_Store_DbContext context)
+        {
+            _context = context;
+        }
 
 
 
@@ -32,8 +37,8 @@ namespace OnlineBookStoreUser.Controllers
         {
             if (ModelState.IsValid)
             {
-                context.Customers.Add(cust);
-                context.SaveChanges();
+                _context.Customers.Add(cust);
+                _context.SaveChanges();
 
                 return RedirectToAction("Login");
             }
@@ -61,7 +66,7 @@ namespace OnlineBookStoreUser.Controllers
         public ActionResult Login([Bind("UserName", "OldPassword")]int id, Customers cust)
         {
 
-            var user = context.Customers.Where(x => x.UserName == cust.UserName && x.OldPassword.Equals(cust.OldPassword)).SingleOrDefault();
+            var user = _context.Customers.Where(x => x.UserName == cust.UserName && x.OldPassword.Equals(cust.OldPassword)).SingleOrDefault();
             if (user == null)
             {
                 ViewBag.Error = "Invalid Credential";
@@ -96,11 +101,12 @@ namespace OnlineBookStoreUser.Controllers
 
 
         }
+    
         public ActionResult Details(int id)
         {
-            Customers cust = context.Customers.Where(x => x.CustomerId == id).SingleOrDefault();
+            Customers cust = _context.Customers.Where(x => x.CustomerId == id).SingleOrDefault();
             //Books bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
-            context.SaveChanges();
+            _context.SaveChanges();
             return View(cust);
         }
 
@@ -116,7 +122,7 @@ namespace OnlineBookStoreUser.Controllers
         public ActionResult Profile()
         {
             int custId = int.Parse(HttpContext.Session.GetString("cid"));
-            Customers cust = context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
+            Customers cust = _context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
             return View(cust);
 
         }
@@ -125,7 +131,7 @@ namespace OnlineBookStoreUser.Controllers
         public ActionResult Edit()
         {
             int custId = int.Parse(HttpContext.Session.GetString("cid"));
-            Customers cust = context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
+            Customers cust = _context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
             return View(cust);
         }
         [Route("edit")]
@@ -135,10 +141,10 @@ namespace OnlineBookStoreUser.Controllers
             if (ModelState.IsValid)
             {
                 int custId = int.Parse(HttpContext.Session.GetString("cid"));
-                Customers cust = context.Customers.Where
+                Customers cust = _context.Customers.Where
                     (x => x.CustomerId == custId).SingleOrDefault();
-                context.Entry(cust).CurrentValues.SetValues(a1);
-                context.SaveChanges();
+                _context.Entry(cust).CurrentValues.SetValues(a1);
+                _context.SaveChanges();
                 return RedirectToAction("Profile", new { @id = custId });
             }
             return View(a1);
@@ -149,9 +155,15 @@ namespace OnlineBookStoreUser.Controllers
         public ActionResult ResetPassword()
         {
             int custId = int.Parse(HttpContext.Session.GetString("cid"));
-            Customers cust = context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
+            Customers cust = _context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
             return View(cust);
         }
+
+        public object Repository()
+        {
+            throw new NotImplementedException();
+        }
+
         [Route("resetpassword")]
         [HttpPost]
         public ActionResult ResetPassword([Bind("OldPassword,NewPassword")]int id, Customers a1)
@@ -160,21 +172,23 @@ namespace OnlineBookStoreUser.Controllers
             if (ModelState.IsValid)
             {
                 int custId = int.Parse(HttpContext.Session.GetString("cid"));
-                Customers cust = context.Customers.Where
+                Customers cust = _context.Customers.Where
                     (x => x.CustomerId == custId).SingleOrDefault();
                 cust.NewPassword = a1.NewPassword;
-                context.SaveChanges();
+                _context.SaveChanges();
                 return RedirectToAction("Profile", new { @id = custId });
             }
             return View(a1);
         }
+
+       
 
         [Route("resetaddress")]
         [HttpGet]
         public ActionResult ResetAddress()
         {
             int custId = int.Parse(HttpContext.Session.GetString("cid"));
-            Customers cust = context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
+            Customers cust = _context.Customers.Where(x => x.CustomerId == custId).SingleOrDefault();
             return View(cust);
         }
         [Route("resetaddress")]
@@ -184,10 +198,10 @@ namespace OnlineBookStoreUser.Controllers
             if (ModelState.IsValid)
             {
                 int custId = int.Parse(HttpContext.Session.GetString("cid"));
-                Customers cust = context.Customers.Where
+                Customers cust = _context.Customers.Where
                     (x => x.CustomerId == custId).SingleOrDefault();
                 cust.Address = a1.Address;
-                context.SaveChanges();
+                _context.SaveChanges();
                 return RedirectToAction("Profile", new { @id = custId });
             }
             return View(a1);
@@ -200,9 +214,9 @@ namespace OnlineBookStoreUser.Controllers
         public IActionResult OrderHistory()
         {
             int custId = int.Parse(HttpContext.Session.GetString("cid"));
-            Customers cust = context.Customers.Where
+            Customers cust = _context.Customers.Where
                 (x => x.CustomerId == custId).SingleOrDefault();
-            List<Orders> ord = context.Orders.Where(x => x.CustomerId == cust.CustomerId).ToList();
+            List<Orders> ord = _context.Orders.Where(x => x.CustomerId == cust.CustomerId).ToList();
             ViewBag.ord = ord;
             return View();
         }
@@ -210,10 +224,10 @@ namespace OnlineBookStoreUser.Controllers
         {
             List<OrderBooks> ob = new List<OrderBooks>();
             List<Books> books = new List<Books>();
-            ob = context.OrderBooks.Where(x => x.OrderId == id).ToList();
+            ob = _context.OrderBooks.Where(x => x.OrderId == id).ToList();
             foreach (var item in ob)
             {
-                Books c = context.Books.Where(x => x.BookId == item.BookId).SingleOrDefault();
+                Books c = _context.Books.Where(x => x.BookId == item.BookId).SingleOrDefault();
                 books.Add(c);
             }
             ViewBag.bookDetail = books;

@@ -10,10 +10,15 @@ namespace coreBookStore.Controllers
 {
     public class OrdersController : Controller
     {
-        BookStoreDbContext context = new BookStoreDbContext();
+        private readonly BookStoreDbContext _context;
+
+        public OrdersController(BookStoreDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            var od = context.Orders.ToList();
+            var od = _context.Orders.ToList();
             return View(od);
             
         }
@@ -23,15 +28,19 @@ namespace coreBookStore.Controllers
         {
             List<OrderBook> ob = new List<OrderBook>();
             List<Book> books = new List<Book>();
-            ob = context.OrderBooks.Where(x => x.OrderId == id).ToList();
+            ob = _context.OrderBooks.Where(x => x.OrderId == id).ToList();
             foreach (var item in ob)
             {
-                Book c = context.Books.Where(x => x.BookId == item.BookId).SingleOrDefault();
+                Book c = _context.Books.Where(x => x.BookId == item.BookId).SingleOrDefault();
                 books.Add(c);
             }
             ViewBag.bookDetail = books;
             return View();
         }
-       
+
+        //public object Details()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

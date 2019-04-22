@@ -30,7 +30,7 @@ namespace OnlineBookStoreUser.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=TRD-511;Database=Book_Store_Db;Integrated Security=true");
             }
         }
@@ -95,9 +95,15 @@ namespace OnlineBookStoreUser.Models
             {
                 entity.HasKey(e => e.CustomerId);
 
+                entity.HasIndex(e => e.ReviewId);
+
                 entity.HasIndex(e => e.UserName)
                     .IsUnique()
                     .HasFilter("([UserName] IS NOT NULL)");
+
+                entity.HasOne(d => d.Review)
+                    .WithMany(p => p.Customers)
+                    .HasForeignKey(d => d.ReviewId);
             });
 
             modelBuilder.Entity<OrderBooks>(entity =>
@@ -155,16 +161,9 @@ namespace OnlineBookStoreUser.Models
 
                 entity.HasIndex(e => e.BookId);
 
-                entity.HasIndex(e => e.CustomerId)
-                    .IsUnique();
-
                 entity.HasOne(d => d.Book)
                     .WithMany(p => p.Reviews)
                     .HasForeignKey(d => d.BookId);
-
-                entity.HasOne(d => d.Customer)
-                    .WithOne(p => p.Reviews)
-                    .HasForeignKey<Reviews>(d => d.CustomerId);
             });
         }
     }

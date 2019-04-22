@@ -9,6 +9,14 @@ namespace coreBookStore.Models
     public class BookStoreDbContext : DbContext
     {
         private object b;
+
+        public BookStoreDbContext()
+        {
+        }
+        public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
+           : base(options)
+        {
+        }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publication> Publications { get; set; }

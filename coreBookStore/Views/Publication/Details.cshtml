@@ -6,21 +6,23 @@
 <br />
 <br />
 <br />
-<h2>Details</h2>
-<br />
 
 
 
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title"><b>@Html.DisplayFor(model => model.PublicationName)</b></h5>
-        <br />
-        <p class="card-text">@Html.DisplayFor(model => model.PublicationDescription)</p>
-        <br />
-        <a asp-controller="Publication" asp-action="Index" class="btn btn-primary">Back To List</a>
+
+<div class="card text-center mb-3" style="max-width: 540px;">
+    <div class="card-header">
+        Publication Details
     </div>
+    <div class="card-body">
+        <h5 class="card-title">Publication Name : @Html.DisplayFor(model => model.PublicationName)</h5>
+
+        <p class="card-text">Publication Description : @Html.DisplayFor(model => model.PublicationDescription)</p>
+
+    </div>
+    <a asp-action="Index" asp-controller="Publication" class="btn btn-primary">Back To List</a>
 </div>
-<br />
+
 
 
 @*<div class="card mb-3" style="max-width: 540px;">

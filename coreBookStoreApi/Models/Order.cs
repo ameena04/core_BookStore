@@ -19,6 +19,6 @@ namespace coreBookStoreApi.Models
 
 
         public List<OrderBook> OrderBook { get; set; }
-        public Payment Payment { get; set; }
+        public Payment Payments { get; set; }
     }
 }

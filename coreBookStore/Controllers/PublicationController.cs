@@ -10,10 +10,15 @@ namespace coreBookStore.Controllers
 {
     public class PublicationController : Controller
     {
-        BookStoreDbContext context = new BookStoreDbContext();
+        private readonly BookStoreDbContext _context;
+
+        public PublicationController(BookStoreDbContext context)
+        {
+            _context = context;
+        }
         public ViewResult Index()
         {
-            var publications = context.Publications.ToList();
+            var publications = _context.Publications.ToList();
             return View(publications);
         }
         [HttpGet]
@@ -27,8 +32,8 @@ namespace coreBookStore.Controllers
             if (ModelState.IsValid)
             {
                
-                context.Publications.Add(p1);
-                context.SaveChanges();
+                _context.Publications.Add(p1);
+                _context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -37,46 +42,50 @@ namespace coreBookStore.Controllers
 
         public ActionResult Details(int id)
         {
-            Publication Pub = context.Publications.Where(x => x.PublicationId == id).SingleOrDefault();
-            context.SaveChanges();
+            Publication Pub = _context.Publications.Where(x => x.PublicationId == id).SingleOrDefault();
+            _context.SaveChanges();
             return View(Pub);
         }
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            Publication Pub = context.Publications.Find(id);
+            Publication Pub = _context.Publications.Find(id);
 
             return View(Pub);
         }
         [HttpPost]
         public ActionResult Delete(int id, Author p1)
         {
-            var Pub = context.Publications.Where(x => x.PublicationId == id).SingleOrDefault();
-            context.Publications.Remove(Pub);
-            context.SaveChanges();
+            var Pub = _context.Publications.Where(x => x.PublicationId == id).SingleOrDefault();
+            _context.Publications.Remove(Pub);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            Publication Pub = context.Publications.Where(x => x.PublicationId == id).SingleOrDefault();
+            Publication Pub = _context.Publications.Where(x => x.PublicationId == id).SingleOrDefault();
 
 
             return View(Pub);
         }
         [HttpPost]
-        public ActionResult Edit([Bind("PublicationName,PublicationDescription,PublicationImage")]Publication p1)
+        public ActionResult Edit(Publication p1)
         {
-            if (ModelState.IsValid)
-            {
-                Publication Pub = context.Publications.Where
+           
+                Publication Pub = _context.Publications.Where
                 (x => x.PublicationId == p1.PublicationId).SingleOrDefault();
 
-                context.Entry(Pub).CurrentValues.SetValues(p1);
-                context.SaveChanges();
+                _context.Entry(Pub).CurrentValues.SetValues(p1);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(p1);
+            
+            //return View(p1);
+        }
+
+        public object Edit(int id, Publication pub)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -9,32 +9,40 @@ namespace coreBookStore.Controllers
 {
     public class PaymentController : Controller
     {
-        BookStoreDbContext context = new BookStoreDbContext();
+        private readonly BookStoreDbContext _context;
+
+        public PaymentController(BookStoreDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            var pay = context.Payments.ToList();
+            var pay = _context.Payments.ToList();
             return View(pay);
         }
         
         public IActionResult Details(int id)
         {
-            //Payment pay = context.Payments.Where(x => x.PaymentId == id).SingleOrDefault();
-            //context.SaveChanges();
-            //return View(pay);
+            Payment pay = _context.Payments.Where(x => x.PaymentId == id).SingleOrDefault();
+            _context.SaveChanges();
+            return View(pay);
 
 
-            List<Payment> pay = new List<Payment>();
-            List<Order> order = new List<Order>();
-            pay = context.Payments.Where(x => x.PaymentId == id).ToList();
-            foreach (var item in pay)
-            {
-                Order c = context.Orders.Where(x => x.OrderId == item.OrderId).SingleOrDefault();
-                order.Add(c);
-            }
-            ViewBag.payDetails = order;
-            return View();
+            //List<Payment> pay = new List<Payment>();
+            //List<Order> order = new List<Order>();
+            //pay = _context.Payments.Where(x => x.PaymentId == id).ToList();
+            //foreach (var item in pay)
+            //{
+            //    Order c = _context.Orders.Where(x => x.OrderId == item.OrderId).SingleOrDefault();
+            //    order.Add(c);
+            //}
+            //ViewBag.payDetails = order;
+            //return View();
         }
 
-
+        //public object Details()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

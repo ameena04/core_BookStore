@@ -12,11 +12,16 @@ namespace OnlineBookStoreUser.Controllers
 {
     public class HomeController : Controller
     {
-        Book_Store_DbContext context = new Book_Store_DbContext();
+        private readonly Book_Store_DbContext _context;
+
+        public HomeController(Book_Store_DbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
           
-            var books = context.Books.ToList();
+            var books = _context.Books.ToList();
             int i = 0;
             int j = 0;
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
@@ -50,7 +55,7 @@ namespace OnlineBookStoreUser.Controllers
 
             //HttpContext.Session.SetString("Search", Search.ToString());
 
-            var Book = context.Books.Where(x => x.BookName == Search || x.BookCategory.BookCategoryName == Search 
+            var Book = _context.Books.Where(x => x.BookName == Search || x.BookCategory.BookCategoryName == Search 
             || x.Author.AuthorName == Search || x.Publication.PublicationName == Search || Search == null).ToList();
             return View(Book);
         }

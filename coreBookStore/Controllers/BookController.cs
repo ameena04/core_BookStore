@@ -10,52 +10,57 @@ namespace coreBookStore.Controllers
 {
     public class BookController : Controller
     {
-        BookStoreDbContext context = new BookStoreDbContext();
+        private readonly BookStoreDbContext _context;
+
+        public BookController(BookStoreDbContext context)
+        {
+            _context = context;
+        }
         public ViewResult Index()
         {
-            var books = context.Books.ToList();
+            var books = _context.Books.ToList();
             return View(books);
         }
         [HttpGet]
         public ViewResult Create()
         {
             
-            ViewBag.authors = new SelectList(context.Authors, "AuthorId", "AuthorName");
-            ViewBag.categorys = new SelectList(context.BookCategories, "BookCategoryId", "BookCategoryName");
-            ViewBag.publications = new SelectList(context.Publications, "PublicationId", "PublicationName");
+            ViewBag.authors = new SelectList(_context.Authors, "AuthorId", "AuthorName");
+            ViewBag.categorys = new SelectList(_context.BookCategories, "BookCategoryId", "BookCategoryName");
+            ViewBag.publications = new SelectList(_context.Publications, "PublicationId", "PublicationName");
            
             return View();
         }
         [HttpPost]
         public ActionResult Create(Book b1)
         {
-            context.Books.Add(b1);
-            context.SaveChanges();
+            _context.Books.Add(b1);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            Book bk = context.Books.Find(id);
+            Book bk = _context.Books.Find(id);
 
             return View(bk);
         }
         [HttpPost]
         public ActionResult Delete(int id, Book b1)
         {
-            var bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
-            context.Books.Remove(bk);
-            context.SaveChanges();
+            var bk = _context.Books.Where(x => x.BookId == id).SingleOrDefault();
+            _context.Books.Remove(bk);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            Book bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
-            ViewBag.authors = new SelectList(context.Authors, "AuthorId", "AuthorName");
-            ViewBag.categorys = new SelectList(context.BookCategories, "BookCategoryId", "BookCategoryName");
-            ViewBag.publications = new SelectList(context.Publications, "PublicationId", "PublicationName");
+            Book bk = _context.Books.Where(x => x.BookId == id).SingleOrDefault();
+            ViewBag.authors = new SelectList(_context.Authors, "AuthorId", "AuthorName");
+            ViewBag.categorys = new SelectList(_context.BookCategories, "BookCategoryId", "BookCategoryName");
+            ViewBag.publications = new SelectList(_context.Publications, "PublicationId", "PublicationName");
 
 
             return View(bk);
@@ -63,16 +68,22 @@ namespace coreBookStore.Controllers
         [HttpPost]
         public ActionResult Edit(Book b1)
         {
-            Book bk = context.Books.Where
+            Book bk = _context.Books.Where
                 (x => x.BookId == b1.BookId).SingleOrDefault();
-            context.Entry(bk).CurrentValues.SetValues(b1);
-            context.SaveChanges();
+            _context.Entry(bk).CurrentValues.SetValues(b1);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public object Edit(int id, Book book)
+        {
+            throw new NotImplementedException();
+        }
+
         public ActionResult Details(int id)
         {
-            Book bk = context.Books.Where(x => x.BookId == id).SingleOrDefault();
-            context.SaveChanges();
+            Book bk = _context.Books.Where(x => x.BookId == id).SingleOrDefault();
+            _context.SaveChanges();
             return View(bk);
         }
     }

@@ -9,18 +9,24 @@ namespace OnlineBookStoreUser.Controllers
 {
     public class PublicationController : Controller
     {
-        Book_Store_DbContext context = new Book_Store_DbContext();
+        private readonly Book_Store_DbContext _context;
+
+        public PublicationController(Book_Store_DbContext context)
+        {
+            _context = context;
+        }
+
 
         public IActionResult Index()
         {
-            var publication = context.Publications.ToList();
+            var publication = _context.Publications.ToList();
             return View(publication);
         }
 
 
         public IActionResult Display(int id)
         {
-            var book = context.Books.Where(x => x.PublicationId == id);
+            var book = _context.Books.Where(x => x.PublicationId == id);
             return View(book);
         }
     }

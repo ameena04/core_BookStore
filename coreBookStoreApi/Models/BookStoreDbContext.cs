@@ -11,15 +11,11 @@ namespace coreBookStoreApi.Models
     {
         public BookStoreDbContext()
         {
-
         }
-
-
-        public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options) : base(options)
+        public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
+           : base(options)
         {
-
         }
-        private object b;
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publication> Publications { get; set; }
@@ -31,10 +27,10 @@ namespace coreBookStoreApi.Models
         public DbSet<OrderBook> OrderBooks { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-           // optionsBuilder.UseSqlServer("Data Source=TRD-511;Initial Catalog=Book_Store_Db;Integrated Security=true;");
-        }
+     //   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+     //   {
+         //   optionsBuilder.UseSqlServer("Data Source=TRD-511;Initial Catalog=Book_Store_Db;Integrated Security=true;");
+      //  }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
@@ -56,7 +52,7 @@ namespace coreBookStoreApi.Models
 
             modelBuilder.Entity<Payment>()
         .HasOne(p => p.Order)
-        .WithOne(b => b.Payment)
+        .WithOne(b => b.Payments)
         .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Review>()
@@ -98,10 +94,11 @@ namespace coreBookStoreApi.Models
                 .HasMaxLength(60)
                 .IsUnicode(false);
             });
-           
+
             base.OnModelCreating(modelBuilder);
         }
 
     }
 }
+
 

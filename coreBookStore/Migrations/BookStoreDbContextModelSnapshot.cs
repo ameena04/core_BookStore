@@ -124,8 +124,6 @@ namespace coreBookStore.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<bool>("BillingAddress");
-
                     b.Property<long>("Contact");
 
                     b.Property<string>("Email");
@@ -138,13 +136,15 @@ namespace coreBookStore.Migrations
 
                     b.Property<string>("OldPassword");
 
-                    b.Property<string>("ShippingAddress");
+                    b.Property<int?>("ReviewId");
 
                     b.Property<string>("UserName");
 
                     b.Property<long>("ZipCode");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("ReviewId");
 
                     b.HasIndex("UserName")
                         .IsUnique()
@@ -253,9 +253,6 @@ namespace coreBookStore.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("CustomerId")
-                        .IsUnique();
-
                     b.ToTable("Reviews");
                 });
 
@@ -275,6 +272,13 @@ namespace coreBookStore.Migrations
                         .WithMany("Books")
                         .HasForeignKey("PublicationId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("coreBookStore.Models.Customer", b =>
+                {
+                    b.HasOne("coreBookStore.Models.Review", "Review")
+                        .WithMany("Customer")
+                        .HasForeignKey("ReviewId");
                 });
 
             modelBuilder.Entity("coreBookStore.Models.Order", b =>
@@ -311,11 +315,6 @@ namespace coreBookStore.Migrations
                     b.HasOne("coreBookStore.Models.Book", "Book")
                         .WithMany("Review")
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("coreBookStore.Models.Customer", "Customer")
-                        .WithOne("Review")
-                        .HasForeignKey("coreBookStore.Models.Review", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

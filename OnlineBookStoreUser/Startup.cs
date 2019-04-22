@@ -45,6 +45,7 @@ namespace OnlineBookStoreUser
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+
             services.AddDbContext<Book_Store_DbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("dbConnection")));
         }
 

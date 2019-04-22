@@ -1,4 +1,7 @@
-﻿@model OnlineBookStoreUser.Models.Books
+﻿
+
+@model OnlineBookStoreUser.Models.Books
+
 
 @{
     Layout = "~/Views/Shared/_PartialLayout.cshtml";
@@ -50,7 +53,7 @@
                 <div class="flexslider">
                     <ul class="slides">
                         <li data-thumb="images/si.jpg">
-                            <div class="thumb-image"> <img src="@Html.DisplayFor(model => model.BookImage)" data-imagezoom="true" class="img-responsive"> </div>
+                            <div class="thumb-image"> <img src="  @Html.DisplayFor(model => model.BookImage)" data-imagezoom="true" class="img-responsive"> </div>
                         </li>
 
                     </ul>
@@ -72,7 +75,7 @@
             <div class="col-md-7 single-right-left simpleCart_shelfItem animated wow slideInRight" data-wow-delay=".5s">
                 <h3>@Html.DisplayFor(model => model.BookName)</h3>
                 <h4><span class="item_price">Rs @Html.DisplayFor(model => model.BookPrice)</span></h4>
-                @*<div class="rating1">
+                <div class="rating1">
                     <span class="starRating">
                         <input id="rating5" type="radio" name="rating" value="5">
                         <label for="rating5">5</label>
@@ -85,37 +88,36 @@
                         <input id="rating1" type="radio" name="rating" value="1">
                         <label for="rating1">1</label>
                     </span>
-                </div>*@
+                </div>
                 <div class="description">
+                    <h5><i>Description</i></h5>
+                    <p>
+                        @Html.DisplayFor(model => model.BookDescription)
+                    </p>
+                </div>
+
+                <div class="bookType">
                     <h5><i>Book Type</i></h5>
                     <p>
                         @Html.DisplayFor(model => model.BookType)
                     </p>
                 </div>
-
-
+                <br />
                 <div class="occasion-cart">
                     <a asp-controller="Cart" asp-action="Buy" asp-route-id="@Model.BookId" id="demo" onclick="myFunction()" class="btn btn-sm btn-outline-secondary">Add To Cart</a>
+
+
                     <script>
                         function myFunction() {
                             document.getElementById("demo").style.color = "red";
                         }
                     </script>
                 </div>
-                <div class="social">
-                    <div class="social-left">
-                        <p>Share On :</p>
-                    </div>
-                    <div class="social-right">
-                        <ul class="social-icons">
-                            <li><a href="www.facebook.com" class="facebook"></a></li>
-                            <li><a href="www.twitter.com" class="twitter"></a></li>
-                            <li><a href="www.google+.com" class="g"></a></li>
-                            <li><a href="www.instagram" class="instagram"></a></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"> </div>
+                <br />
+                <div class="occasion-cart">
+                    <a class="btn btn-sm btn-outline-primary" asp-controller="Book" asp-action="Review" asp-route-id="@Model.BookId">Write Review</a>
                 </div>
+              
             </div>
             <div class="clearfix"> </div>
             <div class="bootstrap-tab animated wow slideInUp" data-wow-delay=".5s">
@@ -123,64 +125,45 @@
                     <ul id="myTab" class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Description</a></li>
                         <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Reviews</a></li>
-                       
+
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
-                            <h5>Book Brief Description</h5>
+                            <h5>Product Brief Description</h5>
                             <p>
                                 @Html.DisplayFor(model => model.BookDescription)
                             </p>
                         </div>
                         <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
                             <div class="bootstrap-tab-text-grids">
-                                <div class="bootstrap-tab-text-grid">
-                                    <div class="bootstrap-tab-text-grid-left">
-                                        <img src="images/4.png" alt=" " class="img-responsive" />
+                                @foreach (var item in ViewBag.reviews)
+                                {
+                                    <div class="bootstrap-tab-text-grid">
+                                        <div class="bootstrap-tab-text-grid-left">
+                                            <img src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder.jpg" height="50" width="100" alt=" " class="img-responsive" />
+                                        </div>
+                                        <div class="bootstrap-tab-text-grid-right">
+                                            <ul>
+                                                <li><a href="#">@item.ReviewSubject</a></li>
+                                            
+                                            </ul>
+                                            <p>
+                                                @item.ReviewMessage
+                                            </p>
+                                        </div>
+                                        <div class="clearfix"> </div>
                                     </div>
-                                    <div class="bootstrap-tab-text-grid-right">
-                                        <ul>
-                                            <li><a href="#">Admin</a></li>
-                                            <li><a href="#"><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Reply</a></li>
-                                        </ul>
-                                        <p>
-                                            Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-                                            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
-                                            vel eum iure reprehenderit.
-                                        </p>
-                                    </div>
-                                    <div class="clearfix"> </div>
-                                </div>
-                                <div class="bootstrap-tab-text-grid">
-                                    <div class="bootstrap-tab-text-grid-left">
-                                        <img src="images/5.png" alt=" " class="img-responsive" />
-                                    </div>
-                                    <div class="bootstrap-tab-text-grid-right">
-                                        <ul>
-                                            <li><a href="#">Admin</a></li>
-                                            <li><a href="#"><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Reply</a></li>
-                                        </ul>
-                                        <p>
-                                            Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-                                            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
-                                            vel eum iure reprehenderit.
-                                        </p>
-                                    </div>
-                                    <div class="clearfix"> </div>
-                                </div>
-                                <div class="add-review">
-                                    <h4>add a review</h4>
-                                    <form>
-                                        <input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-                                        <input type="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                                        <input type="text" value="Subject" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Subject';}" required="">
-                                        <textarea type="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
-                                        <input type="submit" value="Send">
-                                    </form>
-                                </div>
+
+                                }
+
+
                             </div>
                         </div>
-                       
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -188,4 +171,5 @@
         <div class="clearfix"> </div>
     </div>
 </div>
+
 <!-- //single -->

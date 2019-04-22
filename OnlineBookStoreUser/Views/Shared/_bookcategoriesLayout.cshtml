@@ -55,14 +55,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         }
                     </ul>
                 </div>
-                <div class="header-grid-right animated wow slideInRight" data-wow-delay=".5s">
-                    <ul class="social-icons">
-                        <li><a href="#" class="facebook"></a></li>
-                        <li><a href="#" class="twitter"></a></li>
-                        <li><a href="#" class="g"></a></li>
-                        <li><a href="#" class="instagram"></a></li>
-                    </ul>
-                </div>
+               
                 <div class="clearfix"> </div>
             </div>
             <div class="logo-nav">
@@ -97,11 +90,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="logo-nav-right">
                     <div class="search-box">
                         <div id="sb-search" class="sb-search">
-                            <form>
-                                <input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
-                                <input class="sb-search-submit" type="submit" value="">
-                                <span class="sb-icon-search"> </span>
+                            <form asp-controller="Home" asp-action="Search">
+                                <input class="sb-search-input" name="Search" placeholder="Enter your search term..." type="search" id="search">
+                                @*<input class="sb-search-submit" type="submit" value="">*@
+                                @*<input id="Search1" class="form-control" type="text" value="@Context.Session.GetString("Search")">*@
+                                <button class="sb-icon-search" type="submit"> </button>
                             </form>
+
+                            @*<div class="form-group">
+                        <br />
+                        <button class="btn btn-success" asp-controller="Home" asp-action="Search">Check Availability</button>
+                    </div>*@
+
+
+
+
                         </div>
                     </div>
                     <!-- search-scripts -->
@@ -116,10 +119,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="cart box_1">
                         <a asp-controller="Cart" asp-action="Index">
                             <h3>
-                                <div class="total">
-                                    <span id="simpleCart_quantity" class="simpleCart_quantity">@Context.Session.GetString("CartItem")</span> items
-                                </div>
-                                <img src="images/bag.png" alt="" />
+                                @*<div class="total">
+                            <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
+                        </div>*@
+                                @Context.Session.GetString("CartItem")  <img src="~/images/bag.png" alt="" />
                             </h3>
                         </a>
 
@@ -136,19 +139,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         @RenderBody()
         <hr>
     </main>
-    <!-- //collections -->
-
-    <div class="newsletter animated wow slideInUp" data-wow-delay=".5s">
-        <h3>Newsletter</h3>
-        <p>Join us now to get all news and special offers.</p>
-        <form>
-            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-            <input type="email" value="Enter your email address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email address';}" required="">
-            <input type="submit" value="Join Us">
-        </form>
-    </div>
-
-    <!-- //collections-bottom -->
+  
     <!-- footer -->
     <div class="footer">
         <div class="container">
